@@ -19,6 +19,10 @@ $(BUILD_PATH)/%.pdf: %.tex
 		fi && pdflatex -shell-escape -output-directory=$(BUILD_DIR) $< \
 		&& pdflatex -shell-escape -output-directory=$(BUILD_DIR) $<
 
+init:
+	@git remote add overleaf https://git@git.overleaf.com/65db8af8509fe8bd93a1f768
+	@git remote -v
+
 overleaf_pull:
 	git pull overleaf master 
 
@@ -27,3 +31,4 @@ overleaf_push:
 
 clean:
 	rm -rf $(BUILD_DIR)
+
