@@ -1,0 +1,22 @@
+\ifboolexpr{bool{jacowbiblatex}}%
+	{\printbibliography}%
+	{%
+	% "biblatex" is not used, go the "manual" way
+	
+	%\begin{thebibliography}{99}   % Use for  10-99  references
+	\begin{thebibliography}{9} % Use for 1-9 references
+	
+	\bibitem{jacow-help}
+		JACoW,
+		\url{http://www.jacow.org}
+	
+	\bibitem{IEEE}
+		\textit{IEEE Editorial Style Manual},
+		IEEE Periodicals, Piscataway,
+		NJ, USA, Oct. 2014, pp. 34--52.
+
+	\bibitem{journal-abbreviations}
+	\url{https://woodward.library.ubc.ca/researchhelp/journal-abbreviations/}
+
+	\end{thebibliography}
+} % end \ifboolexpr

@@ -427,46 +427,13 @@ Authors are requested to go over the following checklist for electronic publicat
 Please also check the list of common oversights which can be found in \textbf{ANNEX C}.
 
 \section{CONCLUSION}
-
 Any conclusions should be in a separate section directly preceding
 the \textbf{ACKNOWLEDGEMENTS}, \textbf{APPENDIX}, or \textbf{REFERENCES} sections, in that
 order.
 
-\section{ACKNOWLEDGEMENTS}
-Any acknowledgement should be in a separate section directly preceding
-the \textbf{REFERENCES} or \textbf{APPENDIX} section.
-
-
-\section{APPENDIX}
-Any appendix should be in a separate section directly preceding
-the \textbf{REFERENCES} section. If there is no \textbf{REFERENCES} section,
-this should be the last section of the paper.
-
-%
-% only for "biblatex"
-%
-\ifboolexpr{bool{jacowbiblatex}}%
-	{\printbibliography}%
-	{%
-	% "biblatex" is not used, go the "manual" way
-	
-	%\begin{thebibliography}{99}   % Use for  10-99  references
-	\begin{thebibliography}{9} % Use for 1-9 references
-	
-	\bibitem{jacow-help}
-		JACoW,
-		\url{http://www.jacow.org}
-	
-	\bibitem{IEEE}
-		\textit{IEEE Editorial Style Manual},
-		IEEE Periodicals, Piscataway,
-		NJ, USA, Oct. 2014, pp. 34--52.
-
-	\bibitem{journal-abbreviations}
-	\url{https://woodward.library.ubc.ca/researchhelp/journal-abbreviations/}
-
-	\end{thebibliography}
-} % end \ifboolexpr
+\input{acknowledgements}
+\input{appendix}
+\input{bibliography}
 %
 % for use as JACoW template the inclusion of the ANNEX parts have been commented out
 % to generate the complete documentation please remove the "%" of the next two commands
