@@ -19,5 +19,11 @@ $(BUILD_PATH)/%.pdf: %.tex
 		fi && pdflatex -shell-escape -output-directory=$(BUILD_DIR) $< \
 		&& pdflatex -shell-escape -output-directory=$(BUILD_DIR) $<
 
+overleaf_pull:
+	git pull overleaf master 
+
+overleaf_push:
+	git push overleaf master 
+
 clean:
 	rm -rf $(BUILD_DIR)
