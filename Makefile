@@ -22,6 +22,9 @@ $(BUILD_PATH)/%.pdf: %.tex
 init:
 	@git remote add overleaf https://git@git.overleaf.com/65db8af8509fe8bd93a1f768
 	@git remote -v
+	@git config --local credential.helper store
+	@echo "overleaf password: lp_8D71PQGNvoUsTajPsmjAGnpuW3qVH22whFHq"
+	@git fetch overleaf
 
 overleaf_pull:
 	git pull overleaf master 
