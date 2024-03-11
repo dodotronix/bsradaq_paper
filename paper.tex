@@ -2,34 +2,30 @@
 
 \begin{document}
 
-\title{preparation OF papers for \NoCaseChange{JACoW} conferences\thanks{Work supported by ...}}
+\title{LHC abort gap monitor electronics upgrade}
 
-\author{A. N. Author\thanks{email address}, H. Coauthor, Name of Institute or Affiliation, City, Country \\
-		P. Contributor\textsuperscript{1}, Name of Institute or Affiliation, City, Country \\
-		\textsuperscript{1}also at Name of Secondary Institute or Affiliation, City, Country}
+\author{P. Pacner\thanks{petr.pacner@cern.ch}, Brno University of Technology, Brno, Czech Republic \\
+		S. B. Pedersen, D. Belohrad, M. M. Nieto, S. Mazzoni, CERN, Geneva, Switzerland}
 	
 \maketitle
 
-%
 \begin{abstract}
-   Many conference series have adopted the same standards
-   for electronic publication and have joined the Joint
-   Accelerator Conferences Website (JACoW) collaboration
-   for the publication of their proceedings. This document
-   describes the common requirements for the submission of
-   papers to these conferences. Please consult individual
-   conference information for page limits, method of electronic
-   submission, etc. It is not intended that this should
-   be a tutorial in word processing; the aim is to explain the
-   particular requirements for electronic publication at
-   www.JACoW.org. The abstract itself is to act as a stand-alone
-   entity and, as such, should not include citations. Any acronyms 
-   should be expanded on their first occurrence, both in the 
-   abstract and in the rest of the paper. 
-   The abstract itself is to act as a stand-alone entity and, 
-   as such, should not include citations. Any acronyms should 
-   be expanded on their first occurrence, both in the abstract 
-   and in the rest of the paper.
+    The LHC Abort Gap Monitor (AGM) is part of the LHC machine protection
+    system (MPS) and is designed to measure the particle population in a 3us
+    wide region known as the "abort gap." This region needs to be kept empty to
+    ensure safe beam dumps. The AGM captures the synchrotron light generated in
+    the visible part of the spectra and converts it into an electric signal.
+    This signal is then processed by an acquisition system and can trigger the
+    ‘abort gap cleaning’ process.\\
+    The current AGM, which has been in operation since 2010, uses an analogue
+    integrator ASIC and a 40 MHz analogue-to-digital (ADC) converter to provide
+    the particle population information. However, this solution is now
+    considered obsolete and is being replaced by a digital signal processing
+    approach. Working directly in the digital domain not only offers more
+    scalability but also better determinism and reliability. \\
+    This work presents the new technical solution for the acquisition chain,
+    compares the characteristics of both implementations, and showcases recent
+    measurements conducted on the LHC ion and proton beams.
 \end{abstract}
 
 
