@@ -1,0 +1,53 @@
+  \begin{table}[h!b]
+	\setlength\tabcolsep{3.5pt}
+	\centering
+	\caption{Summary of Styles}
+	\label{tab:styles}
+	\begin{tabular}{llcc}
+		\toprule
+		\textbf{Style} & \textbf{Font}               & \textbf{Space}  & \textbf{Space} \\
+		&                             & \textbf{Before} & \textbf{After} \\
+		\midrule
+		\textbf{PAPER}  & \SI{14}{pt}                 & \SI{0}{pt}      & \SI{3}{pt}  \\
+		\textbf{TITLE}  & \textbf{UPPERCASE}          &                 &      \\
+		& \textbf{EXCEPT FOR}         &                 &      \\
+		& \textbf{REQUIRED lowercase} &                 &      \\
+		& \textbf{letters}            &                 &      \\
+		& \textbf{Bold}               &                 &      \\[5pt]
+		%\midrule
+		Author list  & \SI{12}{pt}                 & \SI{9}{pt}      & \SI{12}{pt} \\
+		& UPPER- and lowercase        &                 &      \\[5pt]
+		%\midrule
+		\textit{Abstract} & \SI{12}{pt}                 & \SI{0}{pt}      & \SI{3}{pt} \\
+		\textit{Title}  & \textit{Initial Caps}       &                 &      \\
+		& \textit{Italic}             &                 &      \\[5pt]
+		%\midrule
+		\textbf{Section}  & \SI{12}{pt}                 & \SI{9}{pt}      & \SI{3}{pt}  \\
+		\textbf{Heading}  & \textbf{UPPERCASE}          &                 &      \\
+		& \textbf{bold}               &                 &      \\[5pt]
+		%\midrule
+		\textit{Subsection} & \SI{12}{pt}                 & \SI{6}{pt}      & \SI{3}{pt}  \\
+		\textit{Heading}
+                             & \textit{Initial Caps}       &                 &      \\
+		& \textit{Italic}             &                 &      \\[5pt]
+		%\midrule
+		\textbf{Third-level} & \SI{10}{pt}                 & \SI{6}{pt}      & \SI{0}{pt}  \\
+		\textbf{Heading}     
+                            & \textbf{Initial Caps}       &                 &      \\
+		& \textbf{Bold}               &                 &      \\[5pt]
+		%\midrule
+		Figure        & \SI{10}{pt}                 & \SI{3}{pt}      & $\ge$\SI{3}{pt}  \\
+		Captions      &                             &                 &      \\[5pt]
+		%\midrule
+		Table         & \SI{10}{pt}                 & $\ge$\SI{3}{pt} & \SI{3}{pt}  \\
+		Captions      &                             &                 &      \\[5pt]
+		%\midrule
+		Equations     & \SI{10}{pt} base font       & $\ge$\SI{6}{pt}     & $\ge$\SI{6}{pt} \\[5pt]
+		%\midrule
+		References      & \SI{9}{pt}				& \SI{0}{pt}      & \SI{3}{pt} \\
+        when $\le9$ 	& \verb|\bibliography{9}|	&                 &  \\[5pt]
+        Refs. $\ge10$ 	& \SI{9}{pt}				& \SI{0}{pt}      & \SI{3}{pt}  \\
+                		& \verb|\bibliography{99}|	&    &    \\
+		\bottomrule   %\SI{0.25}{in}
+	\end{tabular}
+\end{table}
