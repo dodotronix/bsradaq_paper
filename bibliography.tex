@@ -1,22 +1,22 @@
 \ifboolexpr{bool{jacowbiblatex}}%
-	{\printbibliography}%
-	{%
-	% "biblatex" is not used, go the "manual" way
-	
-	%\begin{thebibliography}{99}   % Use for  10-99  references
-	\begin{thebibliography}{9} % Use for 1-9 references
-	
-	\bibitem{jacow-help}
-		JACoW,
-		\url{http://www.jacow.org}
-	
-	\bibitem{IEEE}
-		\textit{IEEE Editorial Style Manual},
-		IEEE Periodicals, Piscataway,
-		NJ, USA, Oct. 2014, pp. 34--52.
+{\printbibliography}{
 
-	\bibitem{journal-abbreviations}
-	\url{https://woodward.library.ubc.ca/researchhelp/journal-abbreviations/}
+    \begin{thebibliography}{99}
+	
+        % http://cds.cern.ch/record/782076/files/CERN-2004-003-V1.pdf?version=2
+        \bibitem{LHC_report} BR\"UNING, O. \emph{LHC design report Volume I The LHC
+            Main Ring}. Geneva: European Organization for Nuclear Research, c2004-. CERN
+            (Series), 2004-003. ISBN 92-9083-224-0
 
-	\end{thebibliography}
+        \bibitem{abort_gap_monitor}De Santis, S., Beche, J., Byrd, J., Placidi, M.,
+            Turner, W. \& Zolotorev, M. \emph{Development of an Abort Gap Monitor for the
+            Large Hadron Collider}.  (2004), \url{https://cds.cern.ch/record/823343}
+
+        % https://cds.cern.ch/record/1272172/files/CERN-BE-2010-026.pdf
+        \bibitem{bsra_operation}Bart Pedersen, S., Lefevre, T., Bravin, E., Boccardi, A.,
+            Goldblatt, A., Jeff, A., Roncarolo, F. \& Fisher, A. \emph{First Operation of
+            the Abort Gap Monitors for LHC}.  (2010,5), \url{http://cds.cern.ch/record/1272172}
+
+
+    \end{thebibliography}
 } % end \ifboolexpr
