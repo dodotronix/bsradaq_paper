@@ -46,13 +46,30 @@ The following sections delve into the current AGM system, its limitations, the
 rationale for the upgrade, the new technical solution, a comparative
 measurements.
 
-\section{Current system design}
+% lhc works with high energy beam which is strong enought to cause damage to
+% the machine beam bunch train has abort gap at the last bunch slots creating a
+% time gap of 3us this place should be empty because particles in this gap
+% don't get enough thrust to be directed towards the beam dumps and so they hit
+% hit the magnets controling the beam, which can cause quenching in the magnets
+% and losing the control over the beam. 
+% The Abort Gap monitor serves to continuously monitor amount of particles in
+% abort gap and gives the information to start the abort gap cleaning process.
+
+\section{system architecture}
+% basic methodology how to monitor this area is to exploit the synchrotron
+% radiation light (SL). This phenomena appears when a particle is moving on a
+% circular trajectory. The energy of the beam is proportional to the changes in
+% the radiated spectrum. With increasing energy, the light is shifted towards
+% shorter wavelengths. Since the LHC works with the energy from 
+
         %description of the system
         %Utilization of Analogue Integrator ASIC
         %40 MHz Analogue-to-Digital Converter (ADC)
         %Operation Since 2010
         %Reasons for Obsolescence
         %Digital Signal Processing Approach why and outcomes
+
+
     \subsection{Technical Solution}
         %Utilization of Analogue Integrator ASIC
         %40 MHz Analogue-to-Digital Converter (ADC)
