@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240316174439" modified="D:20240316200201"/>
+<info created="D:20240316174439" modified="D:20240316234819"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -615,9 +615,6 @@ h
 432 796 l
 432 760 l
 420 744 l
-</path>
-<path matrix="0.607843 0 0.729412 0.75 -484.141 203" stroke="red" dash="dotted">
-22.6274 0 0 22.6274 272 720 e
 </path>
 <text matrix="1 0 0 1 48 12" transformations="translations" pos="192 484" stroke="red" type="label" width="86.454" height="6.926" depth="1.93" halign="center" valign="center">Number of particles</text>
 <path stroke="red" arrow="normal/normal" rarrow="normal/normal">
