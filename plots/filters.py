@@ -14,8 +14,8 @@ from matplotlib import cm
     # 'text.usetex': True,
     # 'pgf.rcfonts': False})
 
-# dir_path = os.path.dirname(sys.argv[1])
-a = np.loadtxt(os.path.join('.', 'timber_data/vfc_abort_gap_raw_data_spill.txt'), 
+dir_path = os.path.dirname(sys.argv[1])
+a = np.loadtxt(os.path.join(dir_path, 'timber_data/vfc_abort_gap_raw_data_spill.txt'), 
                encoding='ASCII')
 
 data = np.tile(a, (8, 1))
