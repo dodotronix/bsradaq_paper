@@ -56,18 +56,47 @@ measurements.
 % abort gap and gives the information to start the abort gap cleaning process.
 
 \section{system architecture}
-% basic methodology how to monitor this area is to exploit the synchrotron
-% radiation light (SL). This phenomena appears when a particle is moving on a
-% circular trajectory. The energy of the beam is proportional to the changes in
-% the radiated spectrum. With increasing energy, the light is shifted towards
-% shorter wavelengths. Since the LHC works with the energy from 
+basic methodology how to monitor this area is to exploit the synchrotron
+radiation light (SL). This phenomena appears when a particle is moving on a
+circular trajectory. The energy of the beam is proportional to the changes in
+the radiated spectrum. With increasing energy, the light is shifted towards
+shorter wavelengths. Since the LHC works with the energy from 
+\begin{figure}[!tbh]
+    \centering
+    \includegraphics[width=\columnwidth]{bsra_chain.pdf}
+    \caption{BSRA Chain}
+    \label{fig:bsra_chain}
+\end{figure}
 
-        %description of the system
+\subsection{Technical Solution}
         %Utilization of Analogue Integrator ASIC
         %40 MHz Analogue-to-Digital Converter (ADC)
         %Operation Since 2010
         %Reasons for Obsolescence
         %Digital Signal Processing Approach why and outcomes
+
+        \begin{figure}[!tbh]
+            \centering
+            \includegraphics[width=\columnwidth]{bsra_daq.pdf}
+            \caption{upgraded amplifier}
+            \label{fig:amplifier}
+        \end{figure}
+
+
+\section{New fully digitized AGM}
+
+        \begin{figure}[!tbh]
+            \centering
+            \includegraphics[width=\columnwidth]{amp_schematics.pdf}
+            \caption{upgraded amplifier}
+            \label{fig:amplifier}
+        \end{figure}
+
+% \section{Comparison of Implementations}
+%     \input{tables/system_comparison.tex} 
+%     %compare the changes and comment the expected changes
+
+\section{Recent Measurements}
 
     \begin{figure}[!htb]
       \begin{center}
@@ -77,43 +106,13 @@ measurements.
       \end{center}
     \end{figure}
 
-
-    \subsection{Technical Solution}
-        %Utilization of Analogue Integrator ASIC
-        %40 MHz Analogue-to-Digital Converter (ADC)
-        %Operation Since 2010
-        %Reasons for Obsolescence
-        %Digital Signal Processing Approach why and outcomes
-        \begin{figure*}[!tbh]
-            \centering
-            \includegraphics[width=.7\columnwidth]{amp_schematics.pdf}
-            \caption{upgraded amplifier}
-            \label{fig:amplifier}
-        \end{figure*}
-
-        \begin{figure*}[!tbh]
-            \centering
-            \includegraphics[width=\textwidth]{bsra_chain.pdf}
-            \caption{BSRA Chain}
-            \label{fig:bsra_chain}
-        \end{figure*}
-
-\section{New fully digitized AGM}
-
-\section{Comparison of Implementations}
-    \input{tables/system_comparison.tex} 
-    %compare the changes and comment the expected changes
-
-\section{Recent Measurements}
-
-\section{Discussion}
-    \subsection{Significance of the Upgrade}
-    \subsection{Future Implications}
-    % \subsubsection{Potential for Further Enhancements or Modifications}
-    % \subsubsection{Integration with Other Accelerator Technologies}
+% \section{Discussion}
+%     \subsection{Significance of the Upgrade}
+%     \subsection{Future Implications}
+%     % \subsubsection{Potential for Further Enhancements or Modifications}
+%     % \subsubsection{Integration with Other Accelerator Technologies}
 
 \section{Conclusion}
-\section{Acknowledgments}
 
 \input{acknowledgements}
 \input{appendix}
