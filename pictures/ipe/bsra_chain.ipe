@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240316174439" modified="D:20240318153457"/>
+<info created="D:20240316174439" modified="D:20240318154351"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -394,14 +394,6 @@ h
 h
 </path>
 <text matrix="1 0 0 1 16 -12" transformations="translations" pos="112 716" stroke="black" type="label" width="63.028" height="6.808" depth="0" halign="center" valign="center">LHC TIMING</text>
-<path matrix="1 0 0 1 16 -108" fill="gold">
-368 816 m
-368 776 l
-408 776 l
-408 816 l
-h
-</path>
-<text matrix="1 0 0 1 12 -112" transformations="translations" pos="392 800" stroke="black" type="label" width="6.642" height="9.12" depth="1.95" halign="center" valign="center" size="Large">$\int$</text>
 <path matrix="0.825397 0 0 1 43.9365 -24" stroke="darkorange" pen="heavier" arrow="normal/normal">
 160 712 m
 412 712 l
@@ -515,97 +507,97 @@ h
 <path matrix="1 0 0 1 -96 -96" stroke="black" fill="black">
 2 0 0 2 416 732 e
 </path>
-<path fill="gold">
+<path matrix="1 0 0 1 -8 0" fill="gold">
 300 600 m
 300 640 l
 296 640 l
 296 600 l
 h
 </path>
-<path fill="orange">
+<path matrix="1 0 0 1 -8 0" fill="orange">
 292 600 m
 292 632 l
 296 632 l
 296 600 l
 h
 </path>
-<path fill="gold">
+<path matrix="1 0 0 1 -8 0" fill="gold">
 288 600 m
 288 648 l
 292 648 l
 292 600 l
 h
 </path>
-<path fill="orange">
+<path matrix="1 0 0 1 -8 0" fill="orange">
 288 600 m
 288 624 l
 284 624 l
 284 600 l
 h
 </path>
-<path fill="gold">
+<path matrix="1 0 0 1 -8 0" fill="gold">
 284 600 m
 284 612 l
 280 612 l
 280 600 l
 h
 </path>
-<path fill="orange">
+<path matrix="1 0 0 1 -8 0" fill="orange">
 280 600 m
 280 620 l
 276 620 l
 276 600 l
 h
 </path>
-<path fill="gold">
+<path matrix="1 0 0 1 -8 0" fill="gold">
 276 600 m
 276 628 l
 272 628 l
 272 600 l
 h
 </path>
-<path fill="orange">
+<path matrix="1 0 0 1 -8 0" fill="orange">
 272 600 m
 272 624 l
 268 624 l
 268 600 l
 h
 </path>
-<path fill="gold">
+<path matrix="1 0 0 1 -8 0" fill="gold">
 268 600 m
 268 620 l
 264 620 l
 264 600 l
 h
 </path>
-<path fill="orange">
+<path matrix="1 0 0 1 -8 0" fill="orange">
 264 600 m
 264 616 l
 260 616 l
 260 600 l
 h
 </path>
-<path fill="gold">
+<path matrix="1 0 0 1 -8 0" fill="gold">
 240 600 m
 240 632 l
 236 632 l
 236 600 l
 h
 </path>
-<path fill="orange">
+<path matrix="1 0 0 1 -8 0" fill="orange">
 236 600 m
 236 620 l
 232 620 l
 232 600 l
 h
 </path>
-<text matrix="1 0 0 1 0 -4" transformations="translations" pos="232 596" stroke="black" type="label" width="7.942" height="4.494" depth="0" halign="center" valign="center" size="script">63</text>
-<text matrix="1 0 0 1 68 -4" transformations="translations" pos="232 596" stroke="black" type="label" width="3.971" height="4.494" depth="0" halign="center" valign="center" size="script">0</text>
-<path stroke="gray" dash="dotted" pen="ultrafat" cap="1" join="1">
+<text matrix="1 0 0 1 -8 -4" transformations="translations" pos="232 596" stroke="black" type="label" width="7.942" height="4.494" depth="0" halign="center" valign="center" size="script">63</text>
+<text matrix="1 0 0 1 60 -4" transformations="translations" pos="232 596" stroke="black" type="label" width="3.971" height="4.494" depth="0" halign="center" valign="center" size="script">0</text>
+<path matrix="1 0 0 1 -8 0" stroke="gray" dash="dotted" pen="ultrafat" cap="1" join="1">
 244 592 m
 288 592 l
 </path>
-<path matrix="1 0 0 1 -4 8" stroke="black" pen="heavier" arrow="normal/small" rarrow="normal/small">
+<path matrix="1 0 0 1 -12 8" stroke="black" pen="heavier" arrow="normal/small" rarrow="normal/small">
 304 648 m
 304 592 l
 224 592 l
@@ -675,5 +667,18 @@ h
 </path>
 <text matrix="1 0 0 1 12 0" transformations="translations" pos="180 808" stroke="black" type="label" width="12.868" height="6.808" depth="0" halign="center" valign="center">SR</text>
 <text matrix="1 0 0 1 2 -2" transformations="translations" pos="380 736" stroke="black" type="label" width="7.749" height="6.918" depth="0" halign="center" valign="center">$\&amp;$</text>
+<path matrix="1 0 0 1 16 -108" fill="gold">
+368 816 m
+368 776 l
+408 776 l
+408 816 l
+h
+</path>
+<text matrix="-0 1 -1 -0 884 300" transformations="rigid" pos="328 584" stroke="black" type="label" width="63.976" height="4.849" depth="1.35" halign="center" valign="center" size="script">integral amplitude</text>
+<path stroke="gray" dash="dotted" pen="fat" cap="1" join="1">
+236 608 m
+248 608 l
+</path>
+<text matrix="1 0 0 1 12 -112" transformations="translations" pos="392 800" stroke="black" type="label" width="6.642" height="9.12" depth="1.95" halign="center" valign="center" size="Large">$\int$</text>
 </page>
 </ipe>
