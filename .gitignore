@@ -1,3 +1,4 @@
 build/
 pictures/**/*.pdf
 plots/*.pgf
+**.autosave.**
