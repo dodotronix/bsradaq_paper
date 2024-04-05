@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20211229201030" modified="D:20240405205013"/>
+<info created="D:20211229201030" modified="D:20240405210544"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -312,7 +312,16 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<path layer="alpha" matrix="1.14286 0 0 1 -26.8571 0" stroke="black" pen="heavier">
+<path layer="alpha" stroke="black" pen="heavier" arrow="normal/small" rarrow="normal/small">
+88 540 m
+72 540 l
+72 560 l
+</path>
+<path stroke="black" arrow="normal/small">
+312 636 m
+312 620 l
+</path>
+<path matrix="1.14286 0 0 1 -26.8571 0" stroke="black" pen="heavier">
 160 632 m
 188 632 l
 </path>
@@ -330,11 +339,6 @@ h
 284 624 l
 284 608 l
 292 608 l
-</path>
-<path stroke="black" pen="heavier" arrow="normal/small">
-308 644 m
-300 644 l
-300 620 l
 </path>
 <path stroke="black" pen="heavier" rarrow="normal/small">
 212 548 m
@@ -378,11 +382,7 @@ h
 276 796 m
 304 796 l
 </path>
-<path matrix="1 0 0 1 16 0" stroke="black" pen="heavier" arrow="normal/small" rarrow="normal/small">
-79.9996 560 m
-80.0001 548 l
-</path>
-<text matrix="1 0 0 1 144 -124" transformations="translations" pos="192 768" stroke="black" type="minipage" width="52.996" height="19.259" depth="14.31" halign="center" valign="center" style="center">Gain$_{1,2}$\\
+<text matrix="1 0 0 1 120 -112" transformations="translations" pos="192 768" stroke="black" type="minipage" width="64.996" height="19.259" depth="14.31" halign="center" valign="center" style="center">Gain$_{1,2}$\\
 Offset$_{1,2}$\\
 Correction$_{1,2}$</text>
 <path matrix="1 0 0 1 -192 -164" fill="darkorange">
@@ -480,14 +480,14 @@ Memory</text>
 156 708 l
 172 708 l
 </path>
-<path matrix="1.45454 0 0 0.5 -168.727 212" fill="0.753 0.749 0.737">
+<path matrix="1.45454 0 0 0.5 -144.727 212" fill="0.753 0.749 0.737">
 160 672 m
 160 640 l
 204 640 l
 204 672 l
 h
 </path>
-<text matrix="1 0 0 1 -84 -116" transformations="translations" pos="180 656" stroke="black" type="label" width="13.975" height="6.808" depth="0" halign="center" valign="center">PC</text>
+<text matrix="1 0 0 1 -60 -116" transformations="translations" pos="180 656" stroke="black" type="label" width="13.975" height="6.808" depth="0" halign="center" valign="center">PC</text>
 <path matrix="0.666667 0 0 0.5 -9.33333 300" fill="0.341 0.89 0.537">
 368 576 m
 368 544 l
@@ -521,6 +521,6 @@ Control</text>
 416 576 l
 h
 </path>
-<text matrix="1 0 0 1 -136 -8" transformations="translations" pos="388 556" stroke="black" type="label" halign="center" valign="center">EMA</text>
+<text matrix="1 0 0 1 -136 -8" transformations="translations" pos="388 556" stroke="black" type="label" width="23.385" height="6.808" depth="0" halign="center" valign="center">EMA</text>
 </page>
 </ipe>
