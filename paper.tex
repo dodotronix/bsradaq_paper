@@ -16,64 +16,70 @@
     ensure safe beam dumps. The AGM captures the synchrotron light generated in
     the visible part of the spectra and converts it into an electric signal.
     This signal is then processed by an acquisition system and can trigger the
-    ‘abort gap cleaning’ process.\\
-    The current AGM, which has been in operation since 2010, uses an analogue
-    integrator ASIC and a 40 MHz analogue-to-digital (ADC) converter to provide
-    the particle population information. However, this solution is now
-    considered obsolete and is being replaced by a digital signal processing
-    approach. Working directly in the digital domain not only offers more
-    scalability but also better determinism and reliability. \\
-    This work presents the new technical solution for the acquisition chain,
-    compares the characteristics of both implementations, and showcases recent
-    measurements conducted on the LHC ion and proton beams.
+    ‘abort gap cleaning’ process. The current AGM, which has been in operation
+    since 2010, uses an analogue integrator ASIC and a 40 MHz
+    analogue-to-digital (ADC) converter to provide the particle population
+    information. However, this solution is now considered obsolete and is being
+    replaced by a digital signal processing approach. Working directly in the
+    digital domain not only offers more scalability but also better determinism
+    and reliability. This work presents the new technical solution for the
+    acquisition chain, compares the characteristics of both implementations,
+    and showcases recent measurements conducted on the LHC ion and proton
+    beams.
 \end{abstract}
 
 \section{Introduction}
-The Large Hadron Collider (LHC) operates with high-energy beams that possess
-the capacity to melt metals and induce quenching in magnets, necessitating
-precise control measures to manage the beam when exiting vacuum compartments.
-The LHC beam consists of 2808 bunch slots, organized in bunch trains with a
-3~$\mu$s gap, determined by kicker magnet specifications for controlled
-beam expulsion from vacuum chambers.\\
-This paper addresses the imperative need for an electronics upgrade in the AGM
-system. The current AGM, operational since 2010, relies on an analogue
-integrator ASIC and a 40 MHz analogue-to-digital converter (ADC) for particle
-population measurements. Recognizing the obsolescence of this analogue
-solution, the paper introduces a transition to a digital signal processing
-approach. Working directly in the digital domain not only offers more
-scalability but also better determinism and reliability.\\
-The following sections delve into the current AGM system, its limitations, the
-rationale for the upgrade, the new technical solution, a comparative
-measurements.
-
-% lhc works with high energy beam which is strong enought to cause damage to
-% the machine beam bunch train has abort gap at the last bunch slots creating a
-% time gap of 3us this place should be empty because particles in this gap
-% don't get enough thrust to be directed towards the beam dumps and so they hit
-% hit the magnets controling the beam, which can cause quenching in the magnets
-% and losing the control over the beam. 
-% The Abort Gap monitor serves to continuously monitor amount of particles in
-% abort gap and gives the information to start the abort gap cleaning process.
+The maximum beam energy in~LHC at flat-top distributed in 2808 bunches can
+reach \SI{350}{MJ}, while having its average transverse size smaller than
+\SI{1}{mm}[LHCreport]. Such energy density can cause damage to the machine. 
+Inervention with conductive surface is enough to melt metallic surfaces and
+quenching a superconductiv magnet. The Beam dump system safely removes beam
+from the vacuum chamber. Its kicker magnets need \SI{3}{\micro\second} to ramp
+up their magnetic field and diverge particles towards beam dumps. The particles
+inside AG due to inperfections get insufficient kick and deflect towards the
+vacuum chamber. At certain energy accumulated in AG, the magnet can quench.
+Therefore continuous monitoring of the AG population is required. This is the
+purpose of the AGM~[abortgapmonitor].\\ 
+This paper reviews upgrade of the current AGM system installed in the LHC since
+2010. It describes first general system architecture and analog electronics
+chain of the current implementation. Discusses the temperature dependence,
+timing instabilities and compares the current and upgraded system. 
 
 \section{System architecture}
-basic methodology how to monitor this area is to exploit the synchrotron
-radiation light (SL). This phenomena appears when a particle is moving on a
-circular trajectory. The energy of the beam is proportional to the changes in
-the radiated spectrum. With increasing energy, the light is shifted towards
-shorter wavelengths. Since the LHC works with the energy from 
+Abort gap monitoring methodology is non-invasive, because it exploits
+synchrotron radiation light (SL). This phenomena appears, when a particle is
+losing it's energy on a circular trajectory. The energy is emitted in the form
+of light tangentially to the curved beam. The spectrum of the SL is
+proportional to the energy of the particles in the beam [REF]. At the flat-top
+energy (6.8TeV) the light is in visible range and can be measured by a
+photomultiplier (PMT), which converts light to electric current. 
 
 \subsection{Working principle}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+The~AGM uses the SR
+spontaneously emitted by the beam to quantify the fraction of particles present
+in the AG.
+
+System operational principle is depicted in the Fig.~\ref{fig:bsra_chain}. 
+
+The signal is collected in the point 4, where it is measured by the PMT. The
+signal is converted and amplified depending on the voltage at the anode.
+
+The Emitted SL is collected by the PMT. It converts light to the electrict
+signal. This goes to through amplifier to the integrator, where it is decimated
+by factor 10. The system measure window is \SI{6.4}{\micro\second} long, which
+consist of 64 values after decimation process. Each of these values goes to the
+Exponential moving averager. This type of filter has a feedback remmembering
+all samples from system start.  
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{bsra_chain.pdf}
     \caption{BSRA Chain}
     \label{fig:bsra_chain}
 \end{figure}
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
@@ -99,8 +105,20 @@ nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 
 \subsection{Constraints and Limitations}
+% This relies on an analogue
+% integrator ASIC and a 40 MHz analogue to digital converter (ADC) for particle
+% population measurements. Recognizing the obsolescence of this analogue
+% solution, the paper introduces a transition to a digital signal processing
+% approach. Working directly in the digital domain not only offers more
+% scalability but also better determinism and reliability.
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
@@ -158,6 +176,11 @@ nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{amp_schematics.pdf}
@@ -174,8 +197,17 @@ nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 
 \subsection{Installation in LHC}
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
@@ -186,6 +218,7 @@ nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
     \caption{installation picture}
     \label{fig:installation}
 \end{figure}
+nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
 nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
