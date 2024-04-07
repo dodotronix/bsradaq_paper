@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240318141705" modified="D:20240322102228"/>
+<info created="D:20240318141705" modified="D:20240407221521"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -313,38 +313,38 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<path layer="alpha" stroke="black" pen="heavier" arrow="normal/small">
+<path layer="alpha" stroke="black" arrow="normal/small">
 364 708 m
 348 708 l
 </path>
-<path stroke="0" pen="heavier" arrow="normal/small">
+<path stroke="0" arrow="normal/small">
 288 672 m
 304 672 l
 </path>
-<path stroke="black" pen="heavier" arrow="normal/small">
+<path stroke="black" arrow="normal/small">
 324 672 m
 336 672 l
 336 696 l
 </path>
-<path stroke="black" pen="heavier" arrow="normal/small" rarrow="normal/small">
+<path stroke="black" arrow="normal/small" rarrow="normal/small">
 256 672 m
 248 672 l
 248 708 l
 228 708 l
 </path>
-<path stroke="black" pen="heavier" cap="1" rarrow="normal/small">
+<path stroke="black" cap="1" rarrow="normal/small">
 276 752 m
 276 764 l
 </path>
-<path stroke="black" pen="heavier" arrow="normal/small">
+<path stroke="black" arrow="normal/small">
 336 764 m
 336 752 l
 </path>
-<path stroke="black" pen="heavier" cap="1" arrow="normal/small">
+<path stroke="black" cap="1" arrow="normal/small">
 304 772 m
 316 772 l
 </path>
-<path stroke="black" pen="heavier" arrow="normal/small">
+<path stroke="black" arrow="normal/small">
 432 748 m
 424 748 l
 424 740 l
@@ -354,13 +354,13 @@ h
 356 748 m
 372 748 l
 </path>
-<path stroke="black" pen="heavier" arrow="normal/small">
+<path stroke="black" arrow="normal/small">
 236 748 m
 244 748 l
 244 740 l
 256 740 l
 </path>
-<path matrix="1 0 0 1 0 -8" stroke="black" pen="heavier" arrow="normal/small">
+<path matrix="1 0 0 1 0 -8" stroke="black" arrow="normal/small">
 296 748 m
 316 748 l
 </path>
@@ -420,20 +420,20 @@ h
 256 700 l
 h
 </path>
-<path stroke="black" pen="heavier">
+<path stroke="black">
 384 708 m
 392 708 l
 392 728 l
 </path>
-<path stroke="black" pen="heavier" cap="1" join="1">
+<path stroke="black" cap="1" join="1">
 280 640 m
 292 652 l
 </path>
-<path stroke="black" pen="heavier">
+<path stroke="black">
 396 646 m
 396 728 l
 </path>
-<path stroke="black" pen="heavier">
+<path stroke="black">
 286 646 m
 396 646 l
 </path>
@@ -448,7 +448,7 @@ h
 </path>
 <text matrix="1 0 0 1 8 64" transformations="translations" pos="268 704" stroke="darkorange" type="label" width="52.996" height="6.918" depth="0" halign="center" valign="center">Bunch clock</text>
 <text matrix="1 0 0 1 12 36" transformations="translations" pos="264 740" stroke="seagreen" type="label" width="46.52" height="6.918" depth="0" halign="center" valign="center">Turn clock</text>
-<path stroke="black" pen="heavier">
+<path stroke="black">
 324 708 m
 248 708 l
 </path>
@@ -456,7 +456,7 @@ h
 2 0 0 2 416 732 e
 </path>
 <text matrix="1 0 0 1 40 -96" transformations="translations" pos="408 792" stroke="black" type="label" width="53.826" height="6.926" depth="1.93" halign="center" valign="center">Bunch delay</text>
-<path stroke="black" pen="heavier" cap="1" join="1" rarrow="normal/small">
+<path stroke="black" cap="1" join="1" rarrow="normal/small">
 400 728 m
 400 696 l
 420 696 l

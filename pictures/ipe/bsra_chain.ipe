@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240316174439" modified="D:20240318155129"/>
+<info created="D:20240316174439" modified="D:20240407221205"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -313,12 +313,12 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<path layer="alpha" stroke="black" pen="heavier" cap="1" join="1">
+<path layer="alpha" stroke="black" cap="1" join="1">
 404 708 m
 404 724 l
 400 724 l
 </path>
-<path stroke="black" pen="heavier" cap="1" join="1">
+<path stroke="black" cap="1" join="1">
 396 724 m
 404 744 l
 404 796 l
@@ -326,18 +326,18 @@ h
 400 734 m
 388 734 l
 </path>
-<path matrix="1 0 0 1 0 16" stroke="black" pen="heavier" arrow="normal/small">
+<path matrix="1 0 0 1 0 16" stroke="black" arrow="normal/small">
 320 620 m
 320 596 l
 364 596 l
 364 608 l
 </path>
-<path stroke="black" pen="heavier" rarrow="normal/small">
+<path stroke="black" rarrow="normal/small">
 384 636 m
 404 636 l
 404 668 l
 </path>
-<path stroke="black" pen="fat" arrow="normal/small">
+<path stroke="black" arrow="normal/small">
 276 796 m
 304 796 l
 </path>
@@ -353,7 +353,7 @@ h
 <path matrix="0.333333 0 0 1 141.333 12" fill="gray">
 12 0 0 12 272 784 e
 </path>
-<path stroke="red" pen="ultrafat" arrow="normal/small">
+<path stroke="red" pen="ultrafat" cap="1" join="1" arrow="normal/tiny">
 128 796 m
 232 796 l
 </path>
@@ -402,7 +402,7 @@ h
 h
 </path>
 <text matrix="1 0 0 1 16 -12" transformations="translations" pos="112 716" stroke="black" type="label" width="63.028" height="6.808" depth="0" halign="center" valign="center">LHC TIMING</text>
-<path matrix="0.825397 0 0 1 43.9365 -24" stroke="darkorange" pen="heavier" arrow="normal/normal">
+<path matrix="0.825397 0 0 1 43.9365 -24" stroke="darkorange" arrow="normal/normal">
 160 712 m
 412 712 l
 </path>
@@ -431,7 +431,7 @@ h
 364 768 l
 h
 </path>
-<path stroke="purple" pen="heavier" arrow="normal/small">
+<path stroke="purple" arrow="normal/small">
 272 752 m
 252 752 l
 252 784 l
@@ -439,19 +439,19 @@ h
 <text matrix="1 0 0 1 296 444" transformations="translations" pos="0 307.572" stroke="black" type="minipage" width="36.213" height="11.873" depth="6.89" halign="center" valign="center">\center
 Turn\\
 Selector</text>
-<path stroke="purple" pen="heavier" arrow="normal/small">
+<path stroke="purple" arrow="normal/small">
 320 752 m
 344 752 l
 344 740 l
 360 740 l
 </path>
-<path stroke="seagreen" pen="heavier" rarrow="normal/small">
+<path stroke="seagreen" rarrow="normal/small">
 360 728 m
 344 728 l
 344 720 l
 176 720 l
 </path>
-<path stroke="seagreen" pen="heavier" arrow="normal/small">
+<path stroke="seagreen" arrow="normal/small">
 296 720 m
 296 740 l
 </path>
@@ -467,7 +467,7 @@ Selector</text>
 352 704 l
 368 704 l
 </path>
-<path stroke="purple" pen="heavier">
+<path stroke="purple">
 324 756 m
 328 756 l
 328 768 l
@@ -501,7 +501,7 @@ Selector</text>
 h
 </path>
 <text matrix="1 0 0 1 4 -4" transformations="translations" pos="356 640" stroke="black" type="label" width="23.385" height="6.808" depth="0" halign="center" valign="center">EMA</text>
-<path matrix="1 0 0 1 0 16" stroke="black" pen="heavier" arrow="normal/small">
+<path matrix="1 0 0 1 0 16" stroke="black" arrow="normal/small">
 336 620 m
 304 620 l
 </path>
@@ -598,7 +598,7 @@ h
 244 592 m
 288 592 l
 </path>
-<path matrix="1 0 0 1 -12 8" stroke="black" pen="heavier" arrow="normal/small" rarrow="normal/small">
+<path matrix="1 0 0 1 -12 8" stroke="black" arrow="normal/small" rarrow="normal/small">
 304 648 m
 304 592 l
 224 592 l
@@ -667,7 +667,7 @@ h
 288 668 l
 </path>
 <text matrix="1 0 0 1 12 0" transformations="translations" pos="180 808" stroke="black" type="label" width="12.868" height="6.808" depth="0" halign="center" valign="center">SR</text>
-<text matrix="1 0 0 1 -6 -2" transformations="translations" pos="380 736" stroke="black" type="label" width="7.749" height="6.918" depth="0" halign="center" valign="center">$\&amp;$</text>
+<text matrix="1 0 0 1 -6 -2" transformations="translations" pos="380 736" stroke="black" type="label" width="7.749" height="6.918" depth="0" halign="center" valign="center" style="math">\&amp;</text>
 <path matrix="1 0 0 1 16 -108" fill="gold">
 368 816 m
 368 776 l
@@ -675,11 +675,11 @@ h
 408 816 l
 h
 </path>
-<text matrix="-0 1 -1 -0 884 300" transformations="rigid" pos="328 584" stroke="black" type="label" width="63.976" height="4.849" depth="1.35" halign="center" valign="center" size="script">integral amplitude</text>
+<text matrix="0 1 -1 0 884 300" transformations="rigid" pos="328 584" stroke="black" type="label" width="63.976" height="4.849" depth="1.35" halign="center" valign="center" size="script">integral amplitude</text>
 <path stroke="gray" dash="dotted" pen="fat" cap="1" join="1">
 236 608 m
 248 608 l
 </path>
-<text matrix="1 0 0 1 12 -112" transformations="translations" pos="392 800" stroke="black" type="label" width="6.642" height="9.12" depth="1.95" halign="center" valign="center" size="Large">$\int$</text>
+<text matrix="1 0 0 1 12 -112" transformations="translations" pos="392 800" stroke="black" type="label" width="6.642" height="9.12" depth="1.95" halign="center" valign="center" size="Large" style="math">\int</text>
 </page>
 </ipe>
