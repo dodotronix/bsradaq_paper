@@ -29,38 +29,24 @@
 \end{abstract}
 
 \section{Introduction}
-The LHC can store a maximum beam energy of up to 350 MJ across 2808 bunches
-during its flat-top phase, with an average transverse beam size under 1 mm
-(LHCreport). This high energy density poses a risk of machine damage, as
-conductive surface intervention can melt metallic surfaces and quench
-superconducting magnets. The Beam Dump system, utilizing kicker magnets with a
-3-microsecond ramp-up time to diverting particles, takes care of removing the beam
-from the vacuum chamber. It exploits a gap in the beam called abort gap (AG),
-to ramp up the magnets and divert the beam towards beam dumps.
-Imperfections in the accelerator may result in accumulation of particles inside
-AG. This results in insufficient kicks, causing particles to deflect
-towards the vacuum chamber and potentially leading to magnet quenching. This
-why the AG needs to be continuously monitored by the abort gap monitor (AGM).
-
+During the flat-top phase, the LHC ring stores up to 350 MJ of beam energy,
+spread across 2808 bunches with an average beam transverse size under
+\SI{1}{mm}. This high energy density can melt metallic surfaces and quench
+superconducting magnets, posing a risk to the machine~\cite{LHC_report}. 
+To safely extract the beam from the vacuum compartments, a series of kicker
+magnets belonging to the beam dump system is used. These magnets take 3 us to
+ramp up their magnetic field~\cite{beam_dump_system}. This defines the size of
+an abort gap (AG) in the bunch train. Due to system imperfections, particles
+populate this gap. Average AG population is in order of $10^{9}$ particles. The
+population in a single bunch is four orders of magnitude higher in comparison.
+When the beam dump is initiated, the particles in AG do not receive full
+extraction force. That causes deflection towards the vacuum chamber. When a
+certain energy accumulates in the AG, the magnet can quench. Therefore,
+continuous monitoring of the AG population is necessary, which is the purpose
+of the AGM~\cite{particles_in_ag}.\\
 This paper reviews the upgrade of the current AGM system in the LHC since 2010,
 focusing on system architecture, analog electronics chain, temperature
 dependence, timing instabilities, and a comparison with the upgraded system.
-
-The maximum beam energy in~LHC at flat-top distributed in 2808 bunches can
-reach \SI{350}{MJ}, while having its average transverse size smaller than
-\SI{1}{mm}[LHCreport]. Such energy density can cause damage to the machine. 
-Inervention with conductive surface is enough to melt metallic surfaces and
-quenching a superconductiv magnet. The Beam dump system safely removes beam
-from the vacuum chamber. Its kicker magnets need \SI{3}{\micro\second} to ramp
-up their magnetic field and diverge particles towards beam dumps. The particles
-inside AG due to inperfections get insufficient kick and deflect towards the
-vacuum chamber. At certain energy accumulated in AG, the magnet can quench.
-Therefore continuous monitoring of the AG population is required. This is the
-purpose of the AGM~[abortgapmonitor].\\ 
-This paper reviews upgrade of the current AGM system installed in the LHC since
-2010. It describes first general system architecture and analog electronics
-chain of the current implementation. Discusses the temperature dependence,
-timing instabilities and compares the current and upgraded system. 
 
 \section{System architecture}
 System is assambled from three major parts. First part is the optical font-end
