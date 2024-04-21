@@ -29,6 +29,23 @@
 \end{abstract}
 
 \section{Introduction}
+The LHC can store a maximum beam energy of up to 350 MJ across 2808 bunches
+during its flat-top phase, with an average transverse beam size under 1 mm
+(LHCreport). This high energy density poses a risk of machine damage, as
+conductive surface intervention can melt metallic surfaces and quench
+superconducting magnets. The Beam Dump system, utilizing kicker magnets with a
+3-microsecond ramp-up time to diverting particles, takes care of removing the beam
+from the vacuum chamber. It exploits a gap in the beam called abort gap (AG),
+to ramp up the magnets and divert the beam towards beam dumps.
+Imperfections in the accelerator may result in accumulation of particles inside
+AG. This results in insufficient kicks, causing particles to deflect
+towards the vacuum chamber and potentially leading to magnet quenching. This
+why the AG needs to be continuously monitored by the abort gap monitor (AGM).
+
+This paper reviews the upgrade of the current AGM system in the LHC since 2010,
+focusing on system architecture, analog electronics chain, temperature
+dependence, timing instabilities, and a comparison with the upgraded system.
+
 The maximum beam energy in~LHC at flat-top distributed in 2808 bunches can
 reach \SI{350}{MJ}, while having its average transverse size smaller than
 \SI{1}{mm}[LHCreport]. Such energy density can cause damage to the machine. 
@@ -46,209 +63,189 @@ chain of the current implementation. Discusses the temperature dependence,
 timing instabilities and compares the current and upgraded system. 
 
 \section{System architecture}
-Abort gap monitoring methodology is non-invasive, because it exploits
-synchrotron radiation light (SL). This phenomena appears, when a particle is
-losing it's energy on a circular trajectory. The energy is emitted in the form
-of light tangentially to the curved beam. The spectrum of the SL is
-proportional to the energy of the particles in the beam [REF]. At the flat-top
-energy (6.8TeV) the light is in visible range and can be measured by a
-photomultiplier (PMT), which converts light to electric current. 
-
-\subsection{Working principle}
-The~AGM uses the SR
-spontaneously emitted by the beam to quantify the fraction of particles present
-in the AG.
-
-System operational principle is depicted in the Fig.~\ref{fig:bsra_chain}. 
-
-The signal is collected in the point 4, where it is measured by the PMT. The
-signal is converted and amplified depending on the voltage at the anode.
-
-The Emitted SL is collected by the PMT. It converts light to the electrict
-signal. This goes to through amplifier to the integrator, where it is decimated
-by factor 10. The system measure window is \SI{6.4}{\micro\second} long, which
-consist of 64 values after decimation process. Each of these values goes to the
-Exponential moving averager. This type of filter has a feedback remmembering
-all samples from system start.  
+System is assambled from three major parts. First part is the optical font-end
+including preamplifier placed under the vacuum chamber. Second part is a
+gateware implemented on FPGA platform placed outside of the radiation area. The
+last part is the software reading out measured data and providing interface to
+interact with the gateware. The system architecture is depicted in
+Fig.~\ref{fig:bsra_chain}, where each part is enclosed in a frame with a
+number.
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{bsra_chain.pdf}
     \caption{BSRA Chain}
     \label{fig:bsra_chain}
 \end{figure}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+
+\subsection{Working principle}
+Abort gap monitoring is non-invasive beam measurement with high dynamic range.
+It exploits synchrotron radiation light (SL) present, when trajectory of a
+particle is bend due to magnetic forces. The particle loses it's energy in a
+form of light tangentally radiated to its trajectory. Any change in the light
+spectrum reflects the change in the beam [REF]. 
+The SL spectrum at the flat-top energy (6.8TeV) is in visible range, which
+is measured by a optical front-end. This consists of photomultiplier (PMT),
+converting SL to electric current, filters, and pre-amplifier to increase
+magnitude before sending the signal \SI{100}{m} far away data acquisition
+system (DAQ). The PMT is gate, that it opens just at the moment of abort gap.
+\\
+When SL is converted it is amplified and send to the DAQ. The system is
+synchronous with the RF timing, that it gets information about bunch position
+and turn start. The signal goes to through amplifier to the integrator, where
+it is decimated by factor 10. The system is gated. Its measure window is
+\SI{6.4}{\micro\second} long, but the gate opens just for the time of the abort
+gap. The decimate the data to \SI{100}{ns} sample period. In other words system
+measures 64 values, but just 30 have valid value. Each of these values goes to
+the Exponential moving averager. This type of filter has a feedback, so the
+its output reflects the evolution of the charge in the abort gap. 
 
 \subsection{Current Solution}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+The System is placed at the point 4 sharing the optical line with the BSRT
+[REF]. It converts incoming light through MCP-PMT HAMAMATSU R5916U-50 into
+electric current. The current is converted to voltage by transimpedance
+amplifier HAMAMATSU C5594 with static gain \SI{36}{dBV}, bandwith \SI{1.5}{GHz}
+and the low cutoff frequency 50kHz.
+The amplified signal is send to the switching analog integrators inside ASIC
+lhcb2002b mounted to the IBMS FMC card. The card is connected to the DAB64x
+deploying FPGA Altera Stratix EP1S400. 
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{existing_system_processing.pdf}
     \caption{Current system block diagram}
     \label{fig:current_system_processing}
 \end{figure}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+The current system schematic is in Fig.~\ref{fig:current_system_processing}. It
+uses preintegration in the analog integrators behind the pre-amplifier. One
+outputs a value while the other one is measuring every \SI{25}{ns}. Inside the
+gateware the samples are summed to get 100ns integrals. Each analog integrator
+has different gain, offset and is not temperature invariant. Therefore
+different coefficients are applied at this stage as well. 
+The system provides the two sets of data. It measures the evolution of average
+and standard deviation. The 2 x 64 values are stored in the Block RAM and
+fetched by the PC with running FESA server.
 
 \subsection{Constraints and Limitations}
-% This relies on an analogue
-% integrator ASIC and a 40 MHz analogue to digital converter (ADC) for particle
-% population measurements. Recognizing the obsolescence of this analogue
-% solution, the paper introduces a transition to a digital signal processing
-% approach. Working directly in the digital domain not only offers more
-% scalability but also better determinism and reliability.
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+The system bottle neck is the analog integration. There is one installation per
+beam each having IBMS with different gain, offset, correction coefficients and
+40 MHz ADCs. When the IBMS is replaced, it needs to be recalibrated. The ASIC
+has not deterministic time stamps, so dead-times lengths do not match. This is
+causing artefacts at the opening and closing of the gate in the output plot.
+The dynamic range can be controled by the optical filters not via amplifier,
+because of static gain. Finally the DAB64x is obsolate platform, which
+complicates its maintenance.   
 
 \section{System Upgrade}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-%Utilization of Analogue Integrator ASIC
-%40 MHz Analogue-to-Digital Converter (ADC)
-%Operation Since 2010
-%Reasons for Obsolescence
-%Digital Signal Processing Approach why and outcomes
-
-
-\subsection{Acquisition System}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-\begin{figure}[!tbh]
-    \centering
-    \includegraphics[width=\columnwidth]{bsra_daq.pdf}
-    \caption{Ackquisition system schematics}
-    \label{fig:bsra_daq}
-\end{figure}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+The motivation to create a new Abort Gap Monitor is initiated by the problems
+associated with the analog integrators in lhcb2002b. These cause measurements
+errors and make the AGM difficult to calibrate[REF]. And the second driver to
+redesign the system was the platform obsolance reducing simplicity of
+maintenance. \\ 
+As a platform the new VFC-HD Carrier is used with additional RTM board
+providing driver for the gate and control of the built-in test LED. The last
+major change was of the shelf 500MSPS 14-bit ADC reducing the maintanence
+efford. 
 
 \subsection{Low band Amplifier}
-% \input{tables/system_comparison.tex} 
-%compare the changes and comment the expected changes
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+The amplifier installed close to the MCP-PMT was custom designed. The purpose
+is different light intensity of ion and proton beams to obtain higher dynamic
+range. \\ 
+% A = U^2/(i^2 * R^2) => A_dB = 20*log10(U/(i*R))
+In the Fig. \ref{fig:amp_schematics} is shown amplifier's block scheme. All the
+settings is controlled via UART interface. It provides changing the variable
+current-to-voltage conversion factor from \SI{5.8}{mV/\micro A} -
+\SI{1.1}{V/\micro A}. This corresponds to the Voltage gain from \SI{41}{dB} to
+\SI{87}{dB}. The ADC has a no zero offset, so the signal can be shifted in the
+amplifier before post-processing.\\
+The amplifier features also alarm signal generator. This serves to turn of the
+gate, when the light impinging is to intense and it could damage the
+multi-channel plate inside the PMT. The alarm signal is send to the gateware,
+where it is handled. The alarm feature has a variable threshold set.   
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{amp_schematics.pdf}
     \caption{upgraded amplifier}
     \label{fig:amp_schematics}
 \end{figure}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+The amplifier design has three switches. First switch can set pre-integrator,
+to filter out spikes caused by dark counts of the PMT. Second switch can
+activate either manual or gate driven integration of the acquisition window.  
+Last switch activates low pass filtering with cutoff frequency of 40MHz.
+
+\subsection{Acquisition system}
+The DAQ was completly redesigned, because of the new platform and additional HW
+components. The Fig. \ref{fig:bsra_daq} shows, how the signal is processed an
+published from the DAQ.
+\begin{figure}[!tbh]
+    \centering
+    \includegraphics[width=\columnwidth]{bsra_daq.pdf}
+    \caption{Ackquisition system schematics}
+    \label{fig:bsra_daq}
+\end{figure}
+The ADC takes amplified data from MCP-PMT and samples them with 500MSPS
+asynchronously to the LHC timing. To calculate the integrals, the system tags
+each of the sample. This is done, that tagging block resamples LHC timing by
+500MSPS and creates bunch and turn clock vector masks. Those store the
+information about both clocks rising edge phase. The 14-bit data from ADC are
+left aligned to 16-bit values. The tagger sets their two LSBs to one, when the
+ADC sample falls into the edge range. \\
+The ADC provides four frames of four 16-bit samples every \SI{8}{\nano s} each
+belonging to one ADC channel. The tag can appear in any of the four values. The
+system stores data from region of interest, using FIFO. The synchronizer counts
+4 turns and then generates a trigger for FIFO. Stored data are then processed as
+a stream of values passed to the integrator. This starts summing up values,
+when it hits the tag in the data marking the start of the bunch. It creates 64
+values offseted by the user when needed. This correct the baseline. The values
+are then sent to the exponential moving averager. The result is then stored in
+the block ram available on to read from VME64x bus.
 
 \subsection{Installation in LHC}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+The instrument front and Acquistion system is located in Point 4 near RF
+system. The new installation is shown in Fig. \ref{fig:installation}
+highlighted with violet frame. On its right side is the currently working AGM
+and on the left side is the BSRS. All the instruments share the same light
+source with the BSRT. 
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{installation.jpg}
     \caption{installation picture}
     \label{fig:installation}
 \end{figure}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+The beam input is demonstrated by the yellow line. It shows beam arriving to
+the MCP-PMT. On top of the reflective foil directing light towards the MCP-PMT
+is a LED simulating the light source. This helps verifying the system
+operation. The AGM amplifier is placed on top of the optical front-end to be
+reachable in case of intervention. For reducing the light intensity, there are
+pneumatically controlled optical filters in front of the PMT. 
 
 \section{Control Interface}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+The gateware outputs data from four different block rams. The first stores raw
+data from the ADC, that is used correctly set the initial delay of the
+instrument's timing. It stores 1.5 turns and therefore it is published with
+\SI{3.3}{Hz}. The next two memories store the actual snapshot data and averaged
+data, but with finer granularity. They store 10 samples per \SI{10}{ms} window,
+which gives the sample rate of \SI{100}{Hz}. The last memory is just bare
+averaged data taken every \SI{10}{ms} defining the publishing rate. The
+fetching handles the FESA server, which obtains interrupt every time the data
+are ready. 
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{control_interface.jpg}
     \caption{installation picture}
     \label{fig:control_interface}
 \end{figure}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+To simplify the setup tunining a new interface had to be created. It runs as
+client of FESA server and displays the content of all the block rams. The main
+control panel is depicted in Fig. \ref{fig:control_interface}. It displays
+three plots, raw data from the ADC (top plot), processed averaged data (down
+plot on the left) and and evolution of the data in time (down plot on the
+right). The menu on the left controls the amplifier and bottom menu controls
+the acquisition delays and optical filters.   
 
-\section{Measurements}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+\section{First acquired plots}
+First measurements were taken in November 2023 on the ion beam. The
+optical system splits the SL in ratio 1:8, so the new system gets
+significantly less light then current one. In other word, we expect
+lower value deviation for system measuring light with higher intensity.  
 \begin{figure}[!htb]
     \begin{center}
         \scalebox{0.54}{\input{plots/ions.pgf}}
@@ -256,40 +253,34 @@ nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
         \label{fig:comparison_chart}
     \end{center}
 \end{figure}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+The Fig. \ref{fig:comparison_chart} shows first acquisition of the new system
+in comparison with the current one. The red plot is measured by the current
+system and the blue chart is the new acquisition. In a range from 47th - 63th
+bin, the gate is already close. There is just white noise, but the red plot
+slowly decays and it continues below the zero line. This artefact is caused by
+analog integrators and it is non-linear. The new system removes this effect.
+The value deviation of the new acqusition from the current system represents
+the yellow plot.   The relative value deviation of the new system from the
+current one is depicted with the yellow plot. In this measurement the maximum
+deviation is 4\% in the area of the decay of the red plot. The the deviation of
+2\% in the steep parts can be caused by the sample phase alignment of the two
+systems.   
 
-\section{Discussion}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
+\section{Summary}
+The AGM has been implemented on the VFC-HD carrier board simplifying
+maintenance. The implementation is based on the direct digital conversion,
+which eliminates artefacts in the output plot from the current system using
+IBMS cards embedding analog integrators. It also solves the calibration hassle. 
+The comparison of the two systems is summarized in the following table Tab.
+\ref{tab:system_comparison}.
+\input{tables/system_comparison.tex} 
+The system is installed in the point 4 next to the current AGM collecting data
+to be further analyzed. For the complet reliability test and proper function
+verification, it needs to be collected more data and they have to be compared
+with the current system. The systems shows so far, that with less light, it can
+have still similar results to the current AGM. 
 
-\section{Conclusion}
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-nteaohutnha tnaheusnthae nsatheusnha thoaeut hh antuhentae u tahuenth tahuenth
-
-% \input{acknowledgements}
-% \input{appendix}
 \input{bibliography}
-
-%%%\include{annexes-A4}
 
 \end{document}
 
