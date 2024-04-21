@@ -29,7 +29,7 @@
 \end{abstract}
 
 \section{Introduction}
-During the flat-top phase, the LHC ring stores up to 350 MJ of beam energy,
+During the flat-top phase, the LHC ring stores up to \SI{350}{MJ} of beam energy,
 spread across 2808 bunches with an average beam transverse size under
 \SI{1}{mm}. This high energy density can melt metallic surfaces and quench
 superconducting magnets, posing a risk to the machine~\cite{LHC_report}. 
@@ -49,31 +49,43 @@ focusing on system architecture, analog electronics chain, temperature
 dependence, timing instabilities, and a comparison with the upgraded system.
 
 \section{System architecture}
-System is assambled from three major parts. First part is the optical font-end
-including preamplifier placed under the vacuum chamber. Second part is a
-gateware implemented on FPGA platform placed outside of the radiation area. The
-last part is the software reading out measured data and providing interface to
-interact with the gateware. The system architecture is depicted in
-Fig.~\ref{fig:bsra_chain}, where each part is enclosed in a frame with a
-number.
+The system comprises three main parts. The first part is the optical front-end
+(OF), which includes a preamplifier positioned beneath the vacuum chamber. The
+second part is a data acquisition system (DAQ) deployed on an FPGA platform
+located outside the radiation area. The third part involves software (SW) that
+retrieves, interprets, and presents the measured data, facilitating interaction
+with the instrument. The system architecture is illustrated in
+Fig.~\ref{fig:bsra_chain}, with each part labeled accordingly.
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{bsra_chain.pdf}
     \caption{BSRA Chain}
     \label{fig:bsra_chain}
-\end{figure}
+\end{figure} 
+The diagram on the left depicts the layout of the LHC, with beam 1 represented
+in red and beam 2 in blue. It includes all four experiments (Alice, Atlas,
+LHCb, and CMS). The AGM is situated at Point 4 (indicated by the yellow
+square), close to the CMS experiment. The Timing, Trigger, and Control system
+(TTC) is shown as a purple rectangle in the center of the LHC ring. This system
+receives RF clocking and broadcasts it as messages on the network (TTC
+distribution)~\cite{ttc_distribution}. The AGM extracts bunch clock information
+(corresponding to the position of bunches) and turn clock information (marking
+the start of a turn) from these messages.\\
+Beam intensity is gathered by measuring the synchrotron light (SL), as
+indicated by the red arrow directed towards the Multi-channel photomultiplier
+(MCP-PMT). The light reaches the MCP-PMT in the optical front-end (OF).
+Subsequently, the signal is transmitted over a \SI{100}{m} cable. To compensate
+for losses in the cable, the signal is amplified beforehand. It then proceeds
+to the Data Acquisition (DAQ) system, which measures \SI{6.4}{\micro\second}
+window and integrates the intervals of \SI{100}{\nano\second}. This creates set
+of 64 values published to the SW every \SI{10}{\micro\second}.
 
 \subsection{Working principle}
-Abort gap monitoring is non-invasive beam measurement with high dynamic range.
-It exploits synchrotron radiation light (SL) present, when trajectory of a
-particle is bend due to magnetic forces. The particle loses it's energy in a
-form of light tangentally radiated to its trajectory. Any change in the light
-spectrum reflects the change in the beam [REF]. 
-The SL spectrum at the flat-top energy (6.8TeV) is in visible range, which
-is measured by a optical front-end. This consists of photomultiplier (PMT),
+The SL spectrum at the flat-top energy \SI{6.8}{TeV} is in visible band, which
+is measured by a optical front-end. This consists of MCP-PMT,
 converting SL to electric current, filters, and pre-amplifier to increase
 magnitude before sending the signal \SI{100}{m} far away data acquisition
-system (DAQ). The PMT is gate, that it opens just at the moment of abort gap.
+system (DAQ). The PMT is gate, that it opens just at the moment of abort gap. 
 \\
 When SL is converted it is amplified and send to the DAQ. The system is
 synchronous with the RF timing, that it gets information about bunch position
