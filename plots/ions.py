@@ -42,7 +42,7 @@ plt.xlim([0, 63])
 plt.grid(color=(0.7, 0.7, 0.7), linestyle='--', linewidth=0.6)
 
 ax2 = ax.twinx() 
-ax2.plot(agm_error, '-s', markersize=2, color=(0.961, 0.761, 0.067), linewidth=0.8)  
+ax2.plot(agm_error, '-o', markersize=5, color=(0.961, 0.761, 0.067), linewidth=0.8)  
 
 ax2.tick_params(axis='both', direction='in', labelcolor='k',
                labelsize='small', width=0.6, which='both',
