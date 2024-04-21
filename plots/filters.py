@@ -45,4 +45,6 @@ ax.view_init(38, -148)
 # plt.show()
 
 # # NOTE USER HAVE TO PASS A PATH IN THE ARGUMENTS TO MAKE THE SCRIPT WORK
-plt.savefig(sys.argv[1])
+
+file_name = sys.argv[1].split('.')[0]
+plt.savefig(f"{file_name}.svg", transparent=True)
