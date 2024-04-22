@@ -81,21 +81,18 @@ window and integrates the intervals of \SI{100}{\nano\second}. This creates set
 of 64 values published to the SW every \SI{10}{\micro\second}.
 
 \subsection{Working principle}
-The SL spectrum at the flat-top energy \SI{6.8}{TeV} is in visible band, which
-is measured by a optical front-end. This consists of MCP-PMT,
-converting SL to electric current, filters, and pre-amplifier to increase
-magnitude before sending the signal \SI{100}{m} far away data acquisition
-system (DAQ). The PMT is gate, that it opens just at the moment of abort gap. 
-\\
-When SL is converted it is amplified and send to the DAQ. The system is
-synchronous with the RF timing, that it gets information about bunch position
-and turn start. The signal goes to through amplifier to the integrator, where
-it is decimated by factor 10. The system is gated. Its measure window is
-\SI{6.4}{\micro\second} long, but the gate opens just for the time of the abort
-gap. The decimate the data to \SI{100}{ns} sample period. In other words system
-measures 64 values, but just 30 have valid value. Each of these values goes to
-the Exponential moving averager. This type of filter has a feedback, so the
-its output reflects the evolution of the charge in the abort gap. 
+
+The measurement period is determined by the MCP-PMT used, which is the gated
+HAMAMATSU R5916U-50 with a duty cycle of \SI{1}{\%}. With a gate pulse duration
+of \SI{3}{\micro\second} and one turn cycle length of \SI{89}{\micro\second},
+measurements are taken every 4th clock cycle (\SI{356}{\micro\second}),
+reducing the duty cycle to \SI{0.84}{\%}.\\
+The system captures 64 values with a granularity of \SI{100}{\nano\second}. The
+MCP-PMT gate duration is \SI{3}{\micro\second} providing an additional degree of
+freedom in system control. The data undergo exponential moving
+averaging and are provided to the software every \SI{100}{\micro\second}. Due to
+variatous particle effects, the time taken to populate the AG ranges from
+\SI{1.6}{\second} to \SI{25}{\second}~\cite{high_sensitivity_measurement}.
 
 \subsection{Current Solution}
 The System is placed at the point 4 sharing the optical line with the BSRT
