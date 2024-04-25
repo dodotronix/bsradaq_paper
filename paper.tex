@@ -232,7 +232,7 @@ are ready.
 \end{figure}
 To simplify the setup tunining a new interface had to be created. It runs as
 client of FESA server and displays the content of all the block rams. The main
-control panel is depicted in Fig. \ref{fig:control_interface}. It displays
+control panel is depicted in Fig.~\ref{fig:control_interface}. It displays
 three plots, raw data from the ADC (top plot), processed averaged data (down
 plot on the left) and and evolution of the data in time (down plot on the
 right). The menu on the left controls the amplifier and bottom menu controls
@@ -257,25 +257,25 @@ bin, the gate is already close. There is just white noise, but the red plot
 slowly decays and it continues below the zero line. This artefact is caused by
 analog integrators and it is non-linear. The new system removes this effect.
 The value deviation of the new acqusition from the current system represents
-the yellow plot.   The relative value deviation of the new system from the
+the yellow plot. The relative value deviation of the new system from the
 current one is depicted with the yellow plot. In this measurement the maximum
 deviation is 4\% in the area of the decay of the red plot. The the deviation of
 2\% in the steep parts can be caused by the sample phase alignment of the two
 systems.   
 
 \section{Summary}
-The AGM has been implemented on the VFC-HD carrier board simplifying
-maintenance. The implementation is based on the direct digital conversion,
-which eliminates artefacts in the output plot from the current system using
-IBMS cards embedding analog integrators. It also solves the calibration hassle. 
-The comparison of the two systems is summarized in the following table Tab.
+The new AGM has been implemented on the CERN BI standard platform VFC-HD
+carrier simplifying maintenance. The design removed the IBMS cads with ASIC
+lhcb2002b and so resolved the issue with cumbersome calibration and artefacts
+in the output plots.  It also The changes in the AGM design compared to the
+current AGM are summarized in the following table Tab.
 \ref{tab:system_comparison}.
 \input{tables/system_comparison.tex} 
-The system is installed in the point 4 next to the current AGM collecting data
+The system is installed in LHC the point 4 next to the current AGM collecting data
 to be further analyzed. For the complet reliability test and proper function
-verification, it needs to be collected more data and they have to be compared
-with the current system. The systems shows so far, that with less light, it can
-have still similar results to the current AGM. 
+verification, it needs to be collected more data, that will help evalate system
+goodness. The systems shows so far, that with less light, it can have still
+comparable outputs to the current AGM. 
 
 \input{bibliography}
 
