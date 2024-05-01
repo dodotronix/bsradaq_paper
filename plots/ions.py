@@ -64,3 +64,6 @@ frame.set_linewidth(0.5)
 # plt.show()
 
 plt.savefig(sys.argv[1])
+
+file_name = sys.argv[1].split('.')[0]
+plt.savefig(f"{file_name}.svg", transparent=True)
