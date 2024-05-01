@@ -5,13 +5,13 @@
 \title{LHC abort gap monitor electronics upgrade}
 
 \author{P. Pacner\thanks{petr.pacner@cern.ch}, Brno University of Technology, Brno, Czech Republic \\
-		S. B. Pedersen, D. B\v{e}lohrad, M. Martin Nieto, S. Mazzoni, CERN, Geneva, Switzerland}
+		S. B. Pedersen, D. Belohrad, M. Martin Nieto, S. Mazzoni, CERN, Geneva, Switzerland}
 	
 \maketitle
 
 \begin{abstract}
     The LHC Abort Gap Monitor (AGM) is part of the LHC machine protection
-    system (MPS) and is designed to measure the particle population in a 3us
+    system (MPS) and is designed to measure the particle population in a \SI{3}{\micro\second}
     wide region known as the "abort gap." This region needs to be kept empty to
     ensure safe beam dumps. The AGM captures the synchrotron light generated in
     the visible part of the spectra and converts it into an electric signal.
@@ -34,49 +34,47 @@ spread across 2808 bunches with an average beam transverse size under
 \SI{1}{mm}. This high energy density can melt metallic surfaces and quench
 superconducting magnets, posing a risk to the machine~\cite{LHC_report}. 
 To safely extract the beam from the vacuum compartments, a series of kicker
-magnets belonging to the beam dump system is used. These magnets take 3 us to
+magnets belonging to the beam dump system is used. These magnets take \SI{3}{\micro\second} to
 ramp up their magnetic field~\cite{beam_dump_system}. This defines the size of
-an abort gap (AG) in the bunch train. Due to system imperfections, particles
-populate this gap. Average AG population is in order of $10^{9}$ particles. The
+an abort gap (AG) in the bunch train. Due to system imperfections, a~residual amount of particles
+populate this gap. The average AG population is in order of $10^{9}$ particles. The
 population in a single bunch is four orders of magnitude higher in comparison.
 When the beam dump is initiated, the particles in AG do not receive full
-extraction force. That causes deflection towards the vacuum chamber. When a
-certain energy accumulates in the AG, the magnet can quench. Therefore,
-continuous monitoring of the AG population is necessary, which is the purpose
+extraction force. That causes deflection towards the vacuum chamber. When a~certain energy accumulates in the AG, magnets can quench. Thus,
+a~continuous monitoring of the AG population is necessary, which is the purpose
 of the AGM~\cite{particles_in_ag}.\\
 This paper reviews the upgrade of the current AGM system in the LHC since 2010,
 focusing on system architecture, analog electronics chain, temperature
-dependence, timing instabilities, and a comparison with the upgraded system.
+dependence, timing instabilities, and a~comparison with the upgraded system.
 
 \section{System architecture}
-The system comprises three main parts. The first part is the optical front-end
-(OF), which includes a preamplifier positioned beneath the vacuum chamber. The
+The AGM system comprises of three main parts. The first part is the optical front-end
+(OF), which includes~a pre-amplifier positioned beneath the vacuum chamber. The
 second part is a data acquisition system (DAQ) deployed on an FPGA platform
-located outside the radiation area. The third part involves software (SW) that
+located outside the radiation area. The third part involves a~control software (SW) that
 retrieves, interprets, and presents the measured data, facilitating interaction
 with the instrument. The system architecture is illustrated in
 Fig.~\ref{fig:bsra_chain}, with each part labeled accordingly.
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{bsra_chain.pdf}
-    \caption{BSRA Chain}
+    \caption{BSRA Chain.}
     \label{fig:bsra_chain}
 \end{figure} 
 The diagram on the left depicts the layout of the LHC, with beam 1 represented
 in red and beam 2 in blue. It includes all four experiments (Alice, Atlas,
-LHCb, and CMS). The AGM is situated at Point 4 (indicated by the yellow
+LHCb, and CMS). The AGM is located at Point 4 (indicated by the yellow
 square), close to the CMS experiment. The Timing, Trigger, and Control system
 (TTC) is shown as a purple rectangle in the center of the LHC ring. This system
-receives RF clocking and broadcasts it as messages on the network (TTC
+receives RF clocking and broadcasts it into the network (TTC
 distribution)~\cite{ttc_distribution}. The AGM extracts bunch clock information
 (corresponding to the position of bunches) and turn clock information (marking
-the start of a turn) from these messages.\\
-Beam intensity is gathered by measuring the synchrotron light (SL), as
-indicated by the red line directed towards the Multi-channel photomultiplier
+the start of a~turn) from the LHC timing block messages.\\
+Beam intensity is measured using the synchrotron light (SL) radiation, as indicated by the red line directed towards the Multi-channel photomultiplier
 (MCP-PMT) in the optical front-end (OF). The beam traverses first optical
-filters, which increase system dynamic range. Subsequently, the signal is
+filters, which increases the system dynamic range. Subsequently, the signal is
 transmitted over a \SI{100}{m} cable. To compensate for losses in the cable,
-the signal is amplified beforehand. It then proceeds to the Data Acquisition
+the signal is amplified beforehand. Then it proceeds to the Data Acquisition
 (DAQ) system, which measures \SI{6.4}{\micro\second} window and integrates the
 intervals of \SI{100}{\nano\second}. This creates set of 64 values published to
 the SW every \SI{10}{\micro\second}.
@@ -85,23 +83,23 @@ the SW every \SI{10}{\micro\second}.
 The measurement period is determined by the MCP-PMT used, which is the gated
 HAMAMATSU R5916U-50 with a duty cycle of \SI{1}{\%}. With a gate pulse duration
 of \SI{3}{\micro\second} and one turn cycle length of \SI{89}{\micro\second},
-measurements are taken every 4th clock cycle (\SI{356}{\micro\second}),
+measurements are taken every $4^{\text{th}}$ clock cycle (\SI{356}{\micro\second}),
 reducing the duty cycle to \SI{0.84}{\%}.\\
 The system captures 64 values with a granularity of \SI{100}{\nano\second}. The
 MCP-PMT gate duration is \SI{3}{\micro\second} providing an additional degree of
-freedom in system control. Each \SI{100}{\nano\second} value is averaged in an
-extra EMA and provided to the software every \SI{100}{\micro\second}. This
-time is enough to react to changes in AG. The population can change from
-\SI{1.6}{\second} to \SI{25}{\second} due to different
+freedom in the system control. Each \SI{100}{\nano\second} value is averaged in an
+extra Exponential Moving Average (EMA) and provided to the software every \SI{100}{\micro\second}. This
+time is sufficient to react to changes in AG. The population can change from
+1.6 to \SI{25}{\second} due to different
 effects~\cite{high_sensitivity_measurement}.
 
-\subsection{Current Solution}
+\subsection{Current solution}
 The current setup employs a DAB64x card with an FPGA Altera Stratix EP1S40 for
 data processing. The platform features two FMC connectors, each hosting an IBMS
 module integrating voltage input via the lhcb2002b ASIC~\cite{lhcb_asic}. To
 maximize ADC resolution, the signal undergoes amplification using a HAMAMATSU
 C5594 amplifier with a static gain of \SI{36}{dBV}, a bandwidth of
-\SI{1.5}{GHz}, and a low cutoff frequency of \SI{50}{Hz}.
+\SI{1.5}{GHz}, and a low cutoff frequency of \SI{50}{kHz}.
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{existing_system_processing.pdf}
@@ -110,29 +108,27 @@ C5594 amplifier with a static gain of \SI{36}{dBV}, a bandwidth of
 \end{figure}
 The system schematic is depicted in Fig.\ref{fig:current_system_processing}.
 The OF remains consistent with the description provided
-in the system architecture chapter. Notably, filters are not represented in the
-image as they are universally applied. For optimal utilization of the \SI{40}{MHz}
-ADC's full scale, the MCP-PMT signal necessitates a minimum amplification of
+in the system architecture chapter. Note that filters are not represented in the
+figure as they are universally applied. For optimal utilization of the \SI{40}{MHz}
+ADC's full scale, the MCP-PMT signal requires a~minimum amplification of
 \SI{34}{dB}, a task accomplished by the Hamamatsu C559
 amplifier\cite{bsra_first_operation}.\\
-Within the schematic, the signal corresponding to a single bunch (\SI{25}{ns})
-is integrated within the IBMS module (denoted by a blue triangle with a
-capacitor in the feedback loop) and subsequently sampled by the ADC
+The signal corresponding to a~single bunch (\SI{25}{ns})
+is integrated within the IBMS module (denoted by a~blue triangle with a~capacitor in the feedback loop) and subsequently sampled by the ADC
 (represented by a violet rectangle). The DAQ system integrates four samples
-(indicated by a light blue rectangle with a $\sum$ symbol) to compute the
-charge over a \SI{100}{ns} interval. This process generates 64 values, from
+(indicated by a~light blue rectangle with a $\sum$ symbol) to compute the
+charge over a~\SI{100}{ns} interval. This process generates 64 values, from
 which two sets of 64 values are derived, encompassing the standard deviation
-and mean value calculations. Both sets are then forwarded to the Exponential
-Moving Average (EMA) block (depicted by a green rectangle). All collected data
+and mean value calculations. Both sets are then forwarded to the EMA block (depicted by a green rectangle). All collected data
 are stored within the block RAM and subsequently shared with a PC via a
-Wishbone to VME64 bridge. The PC operates a server, facilitating the FESA
+Wishbone to VME64 bridge. The PC operates a~server, facilitating the FESA
 interface for connected clients.
 
-\subsection{Constraints and Limitations}
+\subsection{Constraints and limitations}
 The present AGM exhibits artifacts in the measurements. Signals outside the
 gating range do not exhibit the characteristics of white noise, attributed to
-the lhcb2002b ASIC. The integrators' gain lacks linearity, featuring distinct
-offsets and dead times. Consequently, the system necessitates correction for
+the lhcb2002b ASIC. The gain of the integrators lacks linearity, featuring distinct
+offsets and dead times. Consequently, the system requires correction for
 these effects at each integrator, leading to uncertainties in the outcomes and
 necessitating intricate calibration procedures.\\
 The system relies on an outdated FPGA platform, rendering its development
@@ -143,88 +139,84 @@ smaller magnitudes.
 \section{System Upgrade}
 To address maintenance concerns, the VFC-HD carrier is employed alongside an
 additional RTM board, facilitating gate driver functionality and control of the
-built-in test LED. Leveraging the same carrier board equipped with a 500MSPS
+built-in test LED. Leveraging the same carrier board equipped with a~500MSPS
 14-bit ADC from previous projects meets the requirement for reducing
 maintenance efforts. The updated system eliminates IBMS cards featuring
 lhcb2002b integrators, transitioning the entire integration process to the
 gateware.
 
-\subsection{Low band Amplifier}
+\subsection{Low band amplifier}
 The newly developed custom amplifier is designed to accommodate a wider signal
 dynamic range by virtue of its variability.
 % A = U^2/(i^2 * R^2) => A_dB = 20*log10(U/(i*R))
 Figure \ref{fig:amp_schematics} illustrates the block diagram of the amplifier.
-All configurations are managed through a UART interface, facilitating
+All configurations are managed through an~UART interface, facilitating
 adjustments to the variable current-to-voltage conversion factor ranging from
-\SI{5.8}{mV/\micro A} to \SI{1.1}{V/\micro A}. This corresponds to a voltage
-gain range of \SI{41}{dB} to \SI{87}{dB}. The AGM ADC does not exhibit a zero
+\SI{5.8}{mV/\micro A} to \SI{1.1}{V/\micro A}. This corresponds to a~voltage
+gain range from \SI{41}{dB} to \SI{87}{dB}. The AGM ADC does not exhibit a~zero
 offset, allowing for signal shifting within the amplifier prior to
 post-processing.\\
 Additionally, the amplifier incorporates an alarm signal generator designed to
-deactivate the gate when the incident light intensity exceeds safe levels,
+deactivate the gate, when the incident light intensity exceeds safe levels,
 potentially risking damage to the multi-channel plate within the PMT. The alarm
 signal is transmitted to the gateware for processing and management. Notably,
-the alarm feature includes a variable threshold setting.
+the alarm feature includes a~variable threshold setting.
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{amp_schematics.pdf}
-    \caption{New AGM custom amplifier}
+    \caption{New AGM custom amplifier.}
     \label{fig:amp_schematics}
 \end{figure}
 The amplifier design includes three switches. The first switch can configure
 the pre-integrator to filter out spikes resulting from dark counts of the PMT.
-The second switch enables selection between manual or gate-driven integration
-of the acquisition window. The third switch activates low-pass filtering with a
-cutoff frequency of \SI{40}{MHz}.
+The second switch enables selection between a~manual or a~gate-driven integration
+of the acquisition window. The third switch activates low-pass filtering with a~cutoff frequency of \SI{40}{MHz}.
 
 \subsection{Acquisition system}
 The DAQ required redesigning for compatibility with the new VFC-HD carrier,
-necessitating the integration of a Rear Transition Module (RTM) to facilitate
-control of the gate and the built-in test LED. Figure~\ref{fig:bsra_daq}
+requiring the integration of a Rear Transition Module (RTM) to facilitate
+the control the gate and the built-in test LED. Figure~\ref{fig:bsra_daq}
 illustrates the principle of DAQ functionality.
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{bsra_daq.pdf}
-    \caption{Ackquisition system schematics}
+    \caption{Acquisition system schematics.}
     \label{fig:bsra_daq}
 \end{figure}
-The new DAQ receives asynchronous data samples from a 500MSPS 14-bit ADC
-(depicted as a violet rectangle), organized in blocks of four frames
-every~\SI{8}{\nano s}, corresponding to one channel. Each frame contains 4 x
-16-bit values. To compute integrals over~\SI{100}{\nano\second}, the system
+The new DAQ receives asynchronous data samples from a~500MSPS 14-bit ADC
+(depicted as a~violet rectangle), organized in blocks of four frames
+every~\SI{8}{\nano s}, corresponding to one channel. Each frame contains 4$\times$16-bit values. To compute integrals over~\SI{100}{\nano\second}, the system
 employs data tagging. The tagging block resamples LHC timing at 500MSPS and
 generates bunch and turn clock vector masks, storing information about both
 clock phases. The 14-bit ADC data is left-aligned to 16-bit values. The tagger
 sets the two least significant bits to one when the ADC sample falls within the
 edge range.\\
-The system stores data from the region of interest into a FIFO using the
-synchronization block pulse. The stored data is then processed as a stream of
+The system stores data from the region of interest into a~FIFO using the
+synchronization block pulse. The stored data is then processed as a~stream of
 values passed to the integrator. The integrator begins summing values upon
-encountering the tag indicating the start of the bunch, generating 64 values
+encountering the tag indicating the start of the bunch, generating 64~values
 offset from the pedestal memory (P[63:0]). This process subtracts accumulated
-charge at the gate opening and closing edges. The resulting values are then
+charge at the gate opening and closing edges. The output values are then
 sent to the EMA, and the results are stored in the
 block RAM accessible via the VME64x bus. The format of the data provided to the
 PC via the running FESA server matches that of the current
 AGM~\cite{my_thesis}.
 
-\subsection{Installation in LHC}
-
-The instrument OF and DAQ are situated in LHC Point 4 near the RF system. The
-new installation is depicted in Fig.~\ref{fig:installation}, delineated by a
-violet frame. Adjacent to its right side is the currently utilized AGM, while
-the BSRS occupies the left side. All instruments share the same light source
-with the BSRT. The instrument is extracted from the shielding, with the red
-arrow indicating the direction from which light emanates and enters the MCP-PMT
-of the new AGM.
 \begin{figure}[!tbh]
     \centering
-    \includegraphics[width=\columnwidth]{installation.jpg}
-    \caption{New AGM installed in Point 4 next to BSRT}
+    \includegraphics[width=0.72\columnwidth]{installation.jpg}
+    \caption{New AGM installed in Point 4 next to BSRT.}
     \label{fig:installation}
 \end{figure}
-Atop the reflective foil, which directs light towards the MCP-PMT, there's a
-LED serving to simulate the light source, aiding in system verification. The
+
+\subsection{Installation in LHC}
+
+The instrument OF and DAQ are situated in LHC Point~4 near the RF system. The
+new installation is depicted in Fig.~\ref{fig:installation}, highlighted by a~violet frame. Adjacent to its right side is the currently utilized AGM, while
+the BSRS occupies the left side. All instruments share the same light source
+with the BSRT. The instrument is extracted from the shielding, with the red
+arrow indicating the direction from which light emanates and enters the MCP-PMT of the new AGM.
+Atop the reflective foil, which directs light towards the MCP-PMT, there is a~LED for simulating the light source, aiding in system verification. The
 AGM amplifier is positioned atop the optical front-end for easy access during
 interventions. To regulate light intensity, pneumatically controlled optical
 filters are positioned in front of the MCP-PMT.
@@ -232,53 +224,50 @@ filters are positioned in front of the MCP-PMT.
 \section{Control Interface}
 The gateware outputs data from four distinct block RAMs. The first RAM stores
 raw data from the ADC, crucial for accurately setting the initial timing delay
-of the instrument. It holds data for 1.5 turns, resulting in a publication rate
+of the instrument. It holds data for 1.5 turns, resulting in a~publication rate
 of~\SI{3.3}{Hz}. The subsequent two memories store both snapshot and averaged
-data with finer granularity. They retain 10 samples per~\SI{10}{ms} window,
-yielding a sample rate of~\SI{100}{Hz}. The final memory exclusively stores
+data with finer granularity. They retain 10~samples per~\SI{10}{ms} window,
+yielding a~sample rate of~\SI{100}{Hz}. The final memory exclusively stores
 averaged data collected every~\SI{10}{ms}, dictating the publication rate. Data
 retrieval is managed by the FESA server, which receives interrupts whenever the
 data becomes available.
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{control_interface.jpg}
-    \caption{New AGM expert graphical interface}
+    \caption{New AGM expert graphical interface.}
     \label{fig:control_interface}
 \end{figure}
-To streamline setup tuning, a new interface was developed. Operating as a
-client of the FESA server, it showcases the content of all block RAMs. The
+To streamline setup tuning, a~new interface was developed. Operating as a~client of the FESA server, it showcases the content of all block RAMs. The
 primary control panel is illustrated in Fig.~\ref{fig:control_interface}. It
-features three plots: raw data from the ADC (top plot), processed averaged data
+features three plots: the raw data from the ADC (top plot), the processed averaged data
 (bottom-left plot), and the temporal evolution of the data (bottom-right plot).
-The left menu governs amplifier settings, while the bottom menu regulates
+The left menu controls amplifier settings, while the bottom menu regulates
 acquisition delays and optical filters.
 
 \section{First acquired plots}
 The initial measurements were conducted in November 2023 using the ion beam.
-The optical system divides the SL in a 1:8 ratio, resulting in significantly
+The optical system divides the SL in a~1:8 ratio, resulting in significantly
 less light reaching the new system compared to the current one. Consequently,
 we anticipate lower deviation values for the system measuring light with higher
 intensity.
 \begin{figure}[!htb]
     \begin{center}
         \scalebox{0.54}{\input{plots/ions.pgf}}
-        \caption{Features comparison of AGMs}
+        \caption{Features comparison of the present and the upgraded AGMs.}
         \label{fig:comparison_chart}
     \end{center}
 \end{figure}
-Figure~\ref{fig:comparison_chart} displays the initial acquisition results of
-the new system compared to the current one. The red plot represents
-measurements by the current system, while the blue plot depicts the new
-acquisition. Within the range of the 47th to 63rd bin, the gate is closed,
-resulting in white noise. However, the red plot gradually decays and extends
-below the zero line due to artifacts stemming from analog integrators,
-exhibiting non-linear behavior. The new system effectively eliminates this
-artifact. The yellow plot illustrates the value deviation of the new
+Figure~\ref{fig:comparison_chart} displays the initial acquisition results of the new system compared to the current one. The red line represents
+measurements by the current system, while the blue line describes the new
+acquisition. Within the range of the $47^{\text{th}}$ to $63^{\text{rd}}$ bin, the gate is closed,
+resulting in a~white noise. However, the red distribution gradually decays and extends
+below zero due to artifacts stemming from analog integrators,
+exhibiting a~non-linear behavior. The new system effectively eliminates this
+artifact. The yellow distribution illustrates the value deviation of the new
 acquisition from the current system, with the relative value deviation depicted
-as well. In this measurement, the maximum deviation is~4\% in the region
-corresponding to the decay of the red plot. Additionally, a deviation of~2\% in
-the steep sections may be attributed to sample phase misalignment between the
-two systems.
+as well. In this measurement, the maximum deviation reaches~4\% in the region
+corresponding to the decay of the red distribution. Additionally, a~deviation of~2\% in
+the steep sections may be attributed to sample phase misalignment between the two systems.
 
 \section{Summary}
 The new AGM has been integrated onto the CERN BI standard platform VFC-HD
