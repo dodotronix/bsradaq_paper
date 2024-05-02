@@ -12,9 +12,9 @@
 \begin{abstract}
     The LHC Abort Gap Monitor (AGM) is part of the LHC machine protection
     system (MPS) and is designed to measure the particle population in a \SI{3}{\micro\second}
-    wide region known as the "abort gap." This region needs to be kept empty to
+    wide region known as the "abort gap". This region needs to be kept empty to
     ensure safe beam dumps. The AGM captures the synchrotron light generated in
-    the visible part of the spectra and converts it into an electric signal.
+    the visible part of the spectrum and converts it into an electric signal.
     This signal is then processed by an acquisition system and can trigger the
     ‘abort gap cleaning’ process. The current AGM, which has been in operation
     since 2010, uses an analogue integrator ASIC and a 40 MHz
@@ -36,23 +36,21 @@ superconducting magnets, posing a risk to the machine~\cite{LHC_report}.
 To safely extract the beam from the vacuum compartments, a series of kicker
 magnets belonging to the beam dump system is used. These magnets take \SI{3}{\micro\second} to
 ramp up their magnetic field~\cite{beam_dump_system}. This defines the size of
-an abort gap (AG) in the bunch train. Due to system imperfections, a~residual amount of particles
-populate this gap. The average AG population is in order of $10^{9}$ particles. The
-population in a single bunch is four orders of magnitude higher in comparison.
+an abort gap (AG) in the bunch train. Due to system imperfections, a residual amount of particles populate this gap.  The typical AG population levels are two to three orders of magnitude lower in comparison to a single LHC bunch.
 When the beam dump is initiated, the particles in AG do not receive full
-extraction force. That causes deflection towards the vacuum chamber. When a~certain energy accumulates in the AG, magnets can quench. Thus,
+extraction force. That causes deflection towards the vacuum chamber. When a certain energy accumulates in the AG, magnets can quench. Thus,
 a~continuous monitoring of the AG population is necessary, which is the purpose
-of the AGM~\cite{particles_in_ag}.\\
+of the AGM \cite{particles_in_ag}.\\
 This paper reviews the upgrade of the current AGM system in the LHC since 2010,
 focusing on system architecture, analog electronics chain, temperature
-dependence, timing instabilities, and a~comparison with the upgraded system.
+dependence, timing instabilities, and a comparison with the upgraded system.
 
 \section{System architecture}
 The AGM system comprises of three main parts. The first part is the optical front-end
 (OF), which includes~a pre-amplifier positioned beneath the vacuum chamber. The
 second part is a data acquisition system (DAQ) deployed on an FPGA platform
 located outside the radiation area. The third part involves a~control software (SW) that
-retrieves, interprets, and presents the measured data, facilitating interaction
+retrieves, interprets, and publishes the measured data, facilitating interaction
 with the instrument. The system architecture is illustrated in
 Fig.~\ref{fig:bsra_chain}, with each part labeled accordingly.
 \begin{figure}[!tbh]
@@ -64,16 +62,15 @@ Fig.~\ref{fig:bsra_chain}, with each part labeled accordingly.
 The diagram on the left depicts the layout of the LHC, with beam 1 represented
 in red and beam 2 in blue. It includes all four experiments (Alice, Atlas,
 LHCb, and CMS). The AGM is located at Point 4 (indicated by the yellow
-square), close to the CMS experiment. The Timing, Trigger, and Control system
+square), next to the CMS experiment. The Timing, Trigger, and Control system
 (TTC) is shown as a purple rectangle in the center of the LHC ring. This system
 receives RF clocking and broadcasts it into the network (TTC
 distribution)~\cite{ttc_distribution}. The AGM extracts bunch clock information
 (corresponding to the position of bunches) and turn clock information (marking
 the start of a~turn) from the LHC timing block messages.\\
 Beam intensity is measured using the synchrotron light (SL) radiation, as indicated by the red line directed towards the Multi-channel photomultiplier
-(MCP-PMT) in the optical front-end (OF). The beam traverses first optical
-filters, which increases the system dynamic range. Subsequently, the signal is
-transmitted over a \SI{100}{m} cable. To compensate for losses in the cable,
+(MCP-PMT) in the optical front-end (OF). The beam traverses first Neutral Density optical filters, which increases the system dynamic range. Subsequently, the signal is
+transmitted over a \SI{100}{m}-long cable. To compensate for losses in the cable,
 the signal is amplified beforehand. Then it proceeds to the Data Acquisition
 (DAQ) system, which measures \SI{6.4}{\micro\second} window and integrates the
 intervals of \SI{100}{\nano\second}. This creates set of 64 values published to
@@ -81,7 +78,7 @@ the SW every \SI{10}{\micro\second}.
 
 \subsection{Working principle}
 The measurement period is determined by the MCP-PMT used, which is the gated
-HAMAMATSU R5916U-50 with a duty cycle of \SI{1}{\%}. With a gate pulse duration
+HAMAMATSU R5916U-50 with a maximum duty cycle of \SI{1}{\%}. With a gate pulse duration
 of \SI{3}{\micro\second} and one turn cycle length of \SI{89}{\micro\second},
 measurements are taken every $4^{\text{th}}$ clock cycle (\SI{356}{\micro\second}),
 reducing the duty cycle to \SI{0.84}{\%}.\\
@@ -125,12 +122,7 @@ Wishbone to VME64 bridge. The PC operates a~server, facilitating the FESA
 interface for connected clients.
 
 \subsection{Constraints and limitations}
-The present AGM exhibits artifacts in the measurements. Signals outside the
-gating range do not exhibit the characteristics of white noise, attributed to
-the lhcb2002b ASIC. The gain of the integrators lacks linearity, featuring distinct
-offsets and dead times. Consequently, the system requires correction for
-these effects at each integrator, leading to uncertainties in the outcomes and
-necessitating intricate calibration procedures.\\
+The present AGM exhibits artifacts in the measurements. Signals outside the gating range do not exhibit the characteristics of white noise, attributed to the lhcb2002b ASIC. The gain of the integrators lacks linearity, featuring distinct offsets and dead times. Consequently, the system requires correction for these effects at each integrator, leading to uncertainties in the outcomes and necessitating intricate calibration procedures. In addition, the amplifier bandwidth (50 kHz - 1,5 GHz) makes it necessary to implement a correction for the missing DC- 50 kHz band to correctly measure AG profiles needed during LHC commissioning phases.\\
 The system relies on an outdated FPGA platform, rendering its development
 software incompatible with the latest operating systems. Additionally, the
 fixed amplifier configuration contributes to reduced resolution for signals of
