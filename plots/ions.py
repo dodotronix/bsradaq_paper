@@ -48,7 +48,7 @@ ax2.tick_params(axis='both', direction='in', labelcolor='k',
                labelsize='small', width=0.6, which='both',
                top=True, right=True)
 
-ax2.set_ylabel('deviation [%]')
+ax2.set_ylabel('deviation [\%]')
 ax2.set_yticks(np.linspace(-8, 6, 8))
 ax2.set_ylim([-6.71, 4.51])
 
