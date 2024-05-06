@@ -72,11 +72,10 @@ distribution) through an optical fiber~\cite{ttc_distribution}. The AGM extracts
 (corresponding to the position of bunches) and turn clock (marking
 the start of a~turn) from the LHC timing block messages.\\
 Beam intensity is measured using the synchrotron light (SL) radiation, as indicated by the red line directed towards the Multi-channel photomultiplier
-(MCP-PMT) in the optical front-end (OF). The beam traverses first Neutral Density optical filters, which increases the system dynamic range. Subsequently, the signal is
+(MCP-PMT) in the optical front-end (OF). The beam traverses first Neutral Density optical filters, which increase the system dynamic range. Subsequently, the signal is
 transmitted over a \SI{100}{m}-long cable. To compensate for losses in the cable,
 the signal is amplified beforehand. Then it proceeds to the Data Acquisition
-(DAQ) system, which measures \SI{6.4}{\micro\second} window and integrates the
-intervals of \SI{100}{\nano\second}. This creates set of 64 values published to
+(DAQ) system, which integrates the incoming signal in \SI{100}{\nano\second} intervals within a \SI{6.4}{\micro\second}-long acquisition window. This creates a set of 64 values published to
 the SW every \SI{10}{\micro\second}.
 
 \subsection{Working principle}
@@ -88,7 +87,7 @@ reducing the duty cycle to \SI{0.84}{\%}.\\
 The system captures 64 values with a granularity of \SI{100}{\nano\second}. The
 MCP-PMT gate duration is \SI{3}{\micro\second} providing an additional degree of
 freedom in the system control. Each \SI{100}{\nano\second} value is averaged in an
-extra Exponential Moving Average (EMA) and provided to the software every \SI{100}{\micro\second}. This
+ Exponential Moving Average (EMA) and provided to the software every \SI{100}{\micro\second}. This
 time is sufficient to react to changes in AG. The population can change from
 1.6 to \SI{25}{\second} due to different
 effects~\cite{high_sensitivity_measurement}.
@@ -96,17 +95,20 @@ effects~\cite{high_sensitivity_measurement}.
 \subsection{Current solution}
 The current setup employs a DAB64x card with an FPGA Altera Stratix EP1S40 for
 data processing. The platform features two FMC connectors, each hosting an IBMS
-module integrating voltage input via the lhcb2002b ASIC~\cite{lhcb_asic}. To
+module, integrating voltage input via the lhcb2002b ASIC~\cite{lhcb_asic}. To
 maximize ADC resolution, the signal undergoes amplification using a HAMAMATSU
 C5594 amplifier with a static gain of \SI{36}{dBV}, a bandwidth of
 \SI{1.5}{GHz}, and a low cutoff frequency of \SI{50}{kHz}.
+
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{existing_system_processing.pdf}
     \caption{Current system block diagram}
     \label{fig:current_system_processing}
 \end{figure}
-The system schematic is depicted in Fig.\ref{fig:current_system_processing}.
+
+
+The system schematic is depicted in Fig.~\ref{fig:current_system_processing}.
 The OF remains consistent with the description provided
 in the system architecture chapter. Note that filters are not represented in the
 figure as they are universally applied. For optimal utilization of the \SI{40}{MHz}
@@ -125,43 +127,30 @@ Wishbone to VME64 bridge. The PC operates a~server, facilitating the FESA
 interface for connected clients.
 
 \subsection{Constraints and limitations}
-The present AGM exhibits artifacts in the measurements. Signals outside the gating range do not exhibit the characteristics of white noise, attributed to the lhcb2002b ASIC. The gain of the integrators lacks linearity, featuring distinct offsets and dead times. Consequently, the system requires correction for these effects at each integrator, leading to uncertainties in the outcomes and necessitating intricate calibration procedures. In addition, the amplifier bandwidth (50 kHz - 1,5 GHz) makes it necessary to implement a correction for the missing DC- 50 kHz band to correctly measure AG profiles needed during LHC commissioning phases.\\
+The present AGM exhibits artifacts in the measurements. Signals outside the gating range do not exhibit the characteristics of white noise, attributed to the lhcb2002b ASIC. The gain of the integrators lacks linearity, featuring distinct offsets and dead times. Consequently, the system requires correction for these effects for each integrator, leading to increased uncertainty of the measurement, necessitating intricate calibration procedures. In addition, the amplifier bandwidth (50 kHz - 1,5 GHz) makes it necessary to implement a correction for the missing DC- 50 kHz band to correctly measure AG profiles needed during LHC commissioning phases.\\
 The system relies on an outdated FPGA platform, rendering its development
-software incompatible with the latest operating systems. Additionally, the
-fixed amplifier configuration contributes to reduced resolution for signals of
-smaller magnitudes.
+software incompatible with the latest operating systems. Additionally, the fixed amplifier configuration contributes to reduced resolution for signals of smaller magnitudes.
 
 \section{System Upgrade}
-To address maintenance concerns, the VFC-HD carrier is employed alongside an
-additional RTM board, facilitating gate driver functionality and control of the
-built-in test LED. Leveraging the same carrier board equipped with a~500MSPS
-14-bit ADC from previous projects meets the requirement for reducing
-maintenance efforts. The updated system eliminates IBMS cards featuring
-lhcb2002b integrators, transitioning the entire integration process to the
-gateware.
+To address the long-term maintenance concerns, the original system described above had to be completely refurbished. While the optical path was kept untouched, the DAQ and the front-end amplifier were replaced by a modern solution. Original analogue integrators were replaced by a 500MSPS 14-bit FMC-form factor sampler. The original amplifier was replaced by a DC-coupled amplifier, allowing for dynamic change of the gain. The FMC ADC module is installed into an in-house built FPGA carrier (VFC-HD) featuring 2$\times 8$GBits DDR3 memories and large Arria V FPGA.  Such solution eliminates completely the need for analogue integrators as all the signal processing can be implemented into the GateWare.  
 
 \subsection{Low band amplifier}
-The newly developed custom amplifier is designed to accommodate a wider signal
-dynamic range by virtue of its variability.
+
+Figure \ref{fig:amp_schematics} illustrates the block diagram of the new amplifier. The amplifier was designed to be highly configurable.
 % A = U^2/(i^2 * R^2) => A_dB = 20*log10(U/(i*R))
-Figure \ref{fig:amp_schematics} illustrates the block diagram of the amplifier.
-All configurations are managed through an~UART interface, facilitating
-adjustments to the variable current-to-voltage conversion factor ranging from
-\SI{5.8}{mV/\micro A} to \SI{1.1}{V/\micro A}. This corresponds to a~voltage
-gain range from \SI{41}{dB} to \SI{87}{dB}. The AGM ADC does not exhibit a~zero
-offset, allowing for signal shifting within the amplifier prior to
-post-processing.\\
-Additionally, the amplifier incorporates an alarm signal generator designed to
-deactivate the gate, when the incident light intensity exceeds safe levels,
-potentially risking damage to the multi-channel plate within the PMT. The alarm
-signal is transmitted to the gateware for processing and management. Notably,
-the alarm feature includes a~variable threshold setting.
+
+The configuration is done through an~UART interface, facilitating
+setting of a variable current-to-voltage conversion factor. The conversion factor can vary from
+\SI{5.8}{mV/\micro A} to \SI{1.1}{V/\micro A}, corresponding to a~voltage gain ranging from \SI{41}{dB} to \SI{87}{dB} in a $50\Omega$ system. The amplifier also implements a programmatic DC-offset compensation, which can be used in the future to extend the signal-to-noise ratio of the measurement. Further, the amplifier provides an alarm signal designed to
+deactivate the PMT gate, when the incident light intensity exceeds safe levels. The alarm threshold is as well settable through UART. It is stored into the amplifier's non-volatile memory to be ready at the amplifier power-up. The alarm is transmitted to the gateware for processing and management.
+
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{amp_schematics.pdf}
     \caption{New AGM custom amplifier.}
     \label{fig:amp_schematics}
 \end{figure}
+
 The amplifier design includes three switches. The first switch can configure
 the pre-integrator to filter out spikes resulting from dark counts of the PMT.
 The second switch enables selection between a~manual or a~gate-driven integration
