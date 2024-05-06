@@ -4,8 +4,8 @@
 
 \title{LHC abort gap monitor electronics upgrade}
 
-\author{P. Pacner\thanks{petr.pacner@cern.ch}, Brno University of Technology, Brno, Czech Republic \\
-		S. B. Pedersen, D. Belohrad, M. Martin Nieto, S. Mazzoni, CERN, Geneva, Switzerland}
+\author{D. Belohrad, S. Mazzoni, M. Martin Nieto, P. Pacner\thanks{petr.pacner@cern.ch}, S. B. Pedersen,\\
+CERN, Geneva, Switzerland}
 	
 \maketitle
 
@@ -36,7 +36,7 @@ superconducting magnets, posing a risk to the machine~\cite{LHC_report}.
 To safely extract the beam from the vacuum compartments, a series of kicker
 magnets belonging to the beam dump system is used. These magnets take \SI{3}{\micro\second} to
 ramp up their magnetic field~\cite{beam_dump_system}. This defines the size of
-an abort gap (AG) in the bunch train. Due to system imperfections, a residual amount of particles populate this gap.  The typical AG population levels are two to three orders of magnitude lower in comparison to a single LHC bunch.
+an abort gap (AG) in the bunch train. Due to system imperfections, a residual amount of particles populates this gap.  The typical AG population levels are two to three orders of magnitude lower in comparison to a single LHC bunch.
 When the beam dump is initiated, the particles in AG do not receive full
 extraction force. That causes the particles in the AG to deflect towards the vacuum chamber. When a certain energy accumulates in the AG, magnets can quench. Thus,
 a~continuous monitoring of the AG population is necessary, which is the purpose
@@ -64,7 +64,7 @@ Fig.~\ref{fig:bsra_chain}, with each part labelled accordingly.
 \end{figure} 
 The drawing depicts the layout of the LHC, with beam 1 represented
 in red and beam 2 in blue. It includes all four experiments (Alice, Atlas,
-LHCb, and CMS). The AGM is located at Point 4 (indicated by the yellow
+LHCb, and CMS). The AGM is located at LHC IP4 (indicated by the yellow
 square), next to the CMS experiment. The Timing, Trigger, and Control system
 (TTC) is shown as a purple rectangle in the center of the LHC ring. This system
 receives RF clocking and broadcasts it into the network (TTC
@@ -122,17 +122,16 @@ is integrated within the IBMS module (denoted by a~blue triangle with a~capacito
 charge over a~\SI{100}{ns} interval. This process generates 64 values, from
 which two sets of 64 values are derived, encompassing the standard deviation
 and mean value calculations. Both sets are then forwarded to the EMA block (depicted by a green rectangle). All collected data
-are stored within the block RAM and subsequently shared with a PC via a
-Wishbone to VME64 bridge. The PC operates a~server, facilitating the FESA
+are stored in a RAM block shared with a front-end computer via VME64 bridge. The PC operates a~server, facilitating the FESA
 interface for connected clients.
 
 \subsection{Constraints and limitations}
-The present AGM exhibits artifacts in the measurements. Signals outside the gating range do not exhibit the characteristics of white noise, attributed to the lhcb2002b ASIC. The gain of the integrators lacks linearity, featuring distinct offsets and dead times. Consequently, the system requires correction for these effects for each integrator, leading to increased uncertainty of the measurement, necessitating intricate calibration procedures. In addition, the amplifier bandwidth (50 kHz - 1,5 GHz) makes it necessary to implement a correction for the missing DC- 50 kHz band to correctly measure AG profiles needed during LHC commissioning phases.\\
+The present AGM exhibits artifacts in the measurements. Signals outside the gating range do not exhibit the characteristics of white noise, attributed to the lhcb2002b ASIC. The gain of the integrators lacks linearity, featuring distinct offsets and dead times. Consequently, the system requires correction for these effects for each integrator, leading to increased uncertainty of the measurement, necessitating intricate calibration procedures. In addition, the amplifier bandwidth (50 kHz-1,5 GHz) makes it necessary to implement a correction for the missing DC- 50 kHz band to correctly measure AG profiles needed during LHC commissioning phases.\\
 The system relies on an outdated FPGA platform, rendering its development
 software incompatible with the latest operating systems. Additionally, the fixed amplifier configuration contributes to reduced resolution for signals of smaller magnitudes.
 
 \section{System Upgrade}
-To address the long-term maintenance concerns, the original system described above had to be completely refurbished. While the optical path was kept untouched, the DAQ and the front-end amplifier were replaced by a modern solution. Original analogue integrators were replaced by a 500MSPS 14-bit FMC-form factor sampler. The original amplifier was replaced by a DC-coupled amplifier, allowing for dynamic change of the gain. The FMC ADC module is installed into an in-house built FPGA carrier (VFC-HD) featuring 2$\times 8$GBits DDR3 memories and large Arria V FPGA.  Such solution eliminates completely the need for analogue integrators as all the signal processing can be implemented into the GateWare.  
+To address the long-term maintenance concerns, the original system described above had to be completely refurbished. While the optical path was kept untouched, the DAQ and the front-end amplifier were replaced by a modern solution. Original analogue integrators were replaced by a 500MSPS 14-bit FMC-form factor sampler. The original amplifier was replaced by a DC-coupled amplifier, allowing for dynamic change of the gain. The FMC ADC module is installed into an in-house built FPGA carrier (VFC-HD) featuring 2$\times 8$GBits DDR3 memories and large Arria V FPGA.  Such solution eliminates completely the need for analogue integrators, as all the signal processing can be implemented into the GateWare.  
 
 \subsection{Low band amplifier}
 
@@ -157,9 +156,9 @@ The second switch enables selection between a~manual or a~gate-driven integratio
 of the acquisition window. The third switch activates low-pass filtering with a~cutoff frequency of \SI{40}{MHz}.
 
 \subsection{Acquisition system}
-The DAQ required redesigning for compatibility with the new VFC-HD carrier,
-requiring the integration of a Rear Transition Module (RTM) to facilitate
-the control the gate and the built-in test LED. Figure~\ref{fig:bsra_daq}
+The new acquisition system is housed in a VME crate. The DAQ is composed of a VME-based VFC-HD carrier equipped with an FMC-form factor ADC module. Additional analogue electronics is implemented into a  Rear Transition Module (RTM), installed in the rear of the VME back plane. The RTM implements the PMT gate driver, and a current source used to operate a test light to check the system integrity. The RTM communicates to the DAQ through VME P2 connector. 
+
+Figure~\ref{fig:bsra_daq}
 illustrates the principle of DAQ functionality.
 \begin{figure}[!tbh]
     \centering
@@ -167,43 +166,32 @@ illustrates the principle of DAQ functionality.
     \caption{Acquisition system schematics.}
     \label{fig:bsra_daq}
 \end{figure}
-The new DAQ receives asynchronous data samples from a~500MSPS 14-bit ADC
-(depicted as a~violet rectangle), organized in blocks of four frames
-every~\SI{8}{\nano s}, corresponding to one channel. Each frame contains 4$\times$16-bit values. To compute integrals over~\SI{100}{\nano\second}, the system
-employs data tagging. The tagging block resamples LHC timing at 500MSPS and
-generates bunch and turn clock vector masks, storing information about both
-clock phases. The 14-bit ADC data is left-aligned to 16-bit values. The tagger
-sets the two least significant bits to one when the ADC sample falls within the
-edge range.\\
-The system stores data from the region of interest into a~FIFO using the
-synchronization block pulse. The stored data is then processed as a~stream of
-values passed to the integrator. The integrator begins summing values upon
-encountering the tag indicating the start of the bunch, generating 64~values
-offset from the pedestal memory (P[63:0]). This process subtracts accumulated
-charge at the gate opening and closing edges. The output values are then
-sent to the EMA, and the results are stored in the
-block RAM accessible via the VME64x bus. The format of the data provided to the
-PC via the running FESA server matches that of the current
-AGM~\cite{my_thesis}.
+The new DAQ receives asynchronous data samples from a 4-channel~500MSPS 14-bit ADC
+(shown in violet), as a stream of four frames
+every~\SI{8}{\nano s}, each corresponding to one channel. Each frame contains 4$\times$16-bit samples. To compute integrals over 4$\times$~\SI{25}{\nano\second} bunch slots, the system
+employs data tagging. The tagging block resamples LHC timing into a 500MHz clock domain, and
+generates timing masks, allowing for identification of bunch and turn starts within each individual ADC frame. As the 14-bit ADC data is left-aligned, the tagger can use 2 LSBs of each sample to indicate the position of the start of the bunch or turn.\\
+The gateware stores data captured within the acquisition window into a~FIFO using the
+synchronization block pulse. The stored data is then integrated. The integrator begins summing values upon
+encountering the tag indicating the start of the bunch. In parallel, it reads a stream of 64~values of a stored 'offset' from a pedestal memory (P[63:0]). The offset is on-fly subtracted from the integrated data stream. Such pedestal subtraction is needed to remove measurement artifacts caused by the PMT gate opening and closing. The output values are filtered by an EMA. Results are stored in a format compatible with the previous AGM~\cite{my_thesis}. A dual-port RAM, keeping the results, can be read out through the VME64x bus.
 
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=0.72\columnwidth]{installation.jpg}
-    \caption{New AGM installed in Point 4 next to BSRT.}
+    \caption{New AGM installed in the LHC IP4, next to BSRT.}
     \label{fig:installation}
 \end{figure}
 
-\subsection{Installation in LHC}
+\subsection{Installation in the LHC}
 
-The instrument OF and DAQ are situated in LHC Point~4 near the RF system. The
-new installation is depicted in Fig.~\ref{fig:installation}, highlighted by a~violet frame. Adjacent to its right side is the currently utilized AGM, while
-the BSRS occupies the left side. All instruments share the same light source
-with the BSRT. The instrument is extracted from the shielding, with the red
-arrow indicating the direction from which light emanates and enters the MCP-PMT of the new AGM.
-Atop the reflective foil, which directs light towards the MCP-PMT, there is a~LED for simulating the light source, aiding in system verification. The
-AGM amplifier is positioned atop the optical front-end for easy access during
-interventions. To regulate light intensity, pneumatically controlled optical
-filters are positioned in front of the MCP-PMT.
+The AGM~OF and DAQ are located in the LHC IP4, near the LHC RF system. The
+new installation is depicted \textit{in retracted position} in Fig.~\ref{fig:installation}, highlighted by a~violet frame. Adjacent to its right is the currently utilized AGM, while
+the longitudinal density monitor (LDM) occupies the left side. All instruments share the same light source
+provided by the LHC beam synchronous light telescope (BSRT). The red
+arrow indicates the direction of the light entering the entire table.
+The light is split using multiple reflective foils into their respective destinations. Both AGM systems are equipped with LEDs installed atop of their reflective foils. These serve to perform functional tests.
+The
+AGM amplifier is mounted on the top of the optical front-end. This allows for easy access during interventions. The position of the installed Neutral Density Filters is pneumatically controlled.
 
 \section{Control Interface}
 The gateware outputs data from four distinct block RAMs. The first RAM stores
@@ -260,7 +248,7 @@ featuring the lhcb2002b ASIC, the design has addressed issues related to
 cumbersome calibration and artifacts in the output plots. The changes in the
 AGM design compared to the current AGM are summarized in
 Table~\ref{tab:system_comparison}.\\
-The system is installed at LHC Point 4, alongside the current AGM, collecting
+The system is installed at LHC IP4, alongside the current AGM, collecting
 data for further analysis. To conduct a comprehensive reliability test and
 verify proper functionality, additional data collection is required. Initial
 observations indicate that despite receiving less light, the new system can
