@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240316125910" modified="D:20240411114049" tex="pdftex"/>
+<info created="D:20240316125910" modified="D:20240506192158" tex="pdftex"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -313,7 +313,11 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<path layer="alpha" matrix="0.607143 0 0 0.479167 125.143 384.333" stroke="0.878 0.106 0.141" dash="dashed" pen="fat">
+<path layer="alpha" stroke="black">
+266 716 m
+266 728 l
+</path>
+<path matrix="0.607143 0 0 0.479167 125.143 384.333" stroke="0.878 0.106 0.141" dash="dashed" pen="fat">
 288 784 m
 288 592 l
 512 592 l
@@ -325,7 +329,7 @@ h
 280 748 l
 280 756 l
 </path>
-<path matrix="1.0625 0 0 0.464286 -12 368.571" fill="0.753 0.749 0.737">
+<path matrix="1.0625 0 0 0.464286 -12 349.553" fill="0.753 0.749 0.737">
 192 688 m
 192 576 l
 256 576 l
@@ -341,10 +345,10 @@ h
 336 600 m
 336 616 l
 </path>
-<path matrix="1 0 0 1 32 0" stroke="black" cap="1">
-168 736 m
-152 736 l
-152 740 l
+<path stroke="black" cap="1">
+192 736 m
+184 736 l
+184 740 l
 </path>
 <path matrix="0.625 0 0 0.625 190 244" fill="0.208 0.518 0.894">
 368 640 m
@@ -369,10 +373,10 @@ h
 428 732 m
 512 732 l
 </path>
-<text matrix="1 0 0 1 4 8" transformations="translations" pos="192 672" stroke="black" type="label" width="43.808" height="6.918" depth="0" valign="center">Threshold</text>
-<text matrix="1 0 0 1 4 -4" transformations="translations" pos="192 672" stroke="black" type="label" width="21.101" height="6.808" depth="0" valign="center">Gain</text>
-<text matrix="1 0 0 1 4 -28" transformations="translations" pos="192 672" stroke="black" type="label" width="62.073" height="7.473" depth="2.49" valign="center">[SW$_{0}$ ... SW$_{2}$]</text>
-<text matrix="1 0 0 1 108 56" transformations="translations" pos="64 592" stroke="black" type="label" width="28.643" height="6.808" depth="0" halign="center" valign="center">UART</text>
+<text matrix="1 0 0 1 4 -11.0185" transformations="translations" pos="192 672" stroke="black" type="label" width="43.808" height="6.918" depth="0" valign="center">Threshold</text>
+<text matrix="1 0 0 1 4 -23.0185" transformations="translations" pos="192 672" stroke="black" type="label" width="21.101" height="6.808" depth="0" valign="center">Gain</text>
+<text matrix="1 0 0 1 4 -47.0185" transformations="translations" pos="192 672" stroke="black" type="label" width="62.073" height="7.473" depth="2.49" valign="center">[SW$_{0}$ ... SW$_{3}$]</text>
+<text matrix="1 0 0 1 108 36.9815" transformations="translations" pos="64 592" stroke="black" type="label" width="28.643" height="6.808" depth="0" halign="center" valign="center">UART</text>
 <text matrix="1 0 0 1 144 4" transformations="translations" pos="192 672" stroke="black" type="label" width="43.808" height="6.918" depth="0" halign="center" valign="center">Threshold</text>
 <text matrix="1 0 0 1 124 -100" transformations="translations" pos="192 672" stroke="black" type="label" width="21.101" height="6.808" depth="0" halign="center" valign="center">Gain</text>
 <path matrix="1 0 0 0.5 -12 372" stroke="black" cap="1" rarrow="normal/small">
@@ -380,13 +384,13 @@ h
 336 800 l
 </path>
 <text matrix="1 0 0 1 90.281 -11.849" transformations="translations" pos="80 768" stroke="black" type="label" width="20.244" height="6.812" depth="1.49" halign="center" valign="center">SW$_{0}$</text>
-<text matrix="1 0 0 1 -28 -20" transformations="translations" pos="352 800" stroke="black" type="label" width="20.244" height="6.812" depth="1.49" halign="center" valign="center">SW$_{1}$</text>
-<text matrix="1 0 0 1 44 196" transformations="translations" pos="152 460" stroke="black" type="label" width="25.792" height="6.918" depth="0" valign="center">Offset</text>
-<text matrix="1 0 0 1 312 -128" transformations="translations" pos="80 768" stroke="black" type="label" width="20.244" height="6.812" depth="1.49" halign="center" valign="center">SW$_{2}$</text>
+<text matrix="1 0 0 1 -28 -20" transformations="translations" pos="352 800" stroke="black" type="label" width="20.244" height="6.812" depth="1.49" halign="center" valign="center">SW$_{2}$</text>
+<text matrix="1 0 0 1 44 176.981" transformations="translations" pos="152 460" stroke="black" type="label" width="25.792" height="6.918" depth="0" valign="center">Offset</text>
+<text matrix="1 0 0 1 312 -128" transformations="translations" pos="80 768" stroke="black" type="label" width="20.244" height="6.812" depth="1.49" halign="center" valign="center">SW$_{3}$</text>
 <text matrix="1 0 0 1 124 112" transformations="translations" pos="152 460" stroke="black" type="label" width="25.792" height="6.918" depth="0" halign="center" valign="center">Offset</text>
 <text matrix="1 0 0 1 124 -16" transformations="translations" pos="16 752" stroke="black" type="label" width="11.07" height="6.808" depth="0" halign="center" valign="center">IN</text>
 <text matrix="1 0 0 1 -72 144" transformations="translations" pos="568 488" stroke="black" type="label" width="22.416" height="6.808" depth="0" halign="center" valign="center">OUT</text>
-<text matrix="1 0 0 1 0 164" transformations="translations" pos="440 432" stroke="black" type="label" width="73.474" height="6.919" depth="2.85" halign="center" valign="center">f$_{cutoff}$ = 40MHz</text>
+<text matrix="1 0 0 1 0 160" transformations="translations" pos="440 432" stroke="black" type="label" width="71.07" height="6.926" depth="1.93" halign="center" valign="center">$f_{\mathrm{cutoff}}$ = 40MHz</text>
 <path matrix="0.625 0 0 0.625 190 374" stroke="1" pen="heavier">
 384 392 m
 384 400
@@ -410,18 +414,10 @@ h
 396 404 l
 </path>
 <text matrix="1 0 0 1 -72 20" transformations="translations" pos="560 720" stroke="black" type="label" width="37.637" height="6.808" depth="0" halign="center" valign="center">ALARM</text>
-<text matrix="1 0 0 1 80 24" transformations="translations" pos="144 672" stroke="black" type="label" width="36.89" height="6.918" depth="0" halign="center" valign="center">Controls</text>
-<path matrix="1 0 0 1 -160 4" fill="black">
+<text matrix="1 0 0 1 80 4.9815" transformations="translations" pos="144 672" stroke="black" type="label" width="36.89" height="6.918" depth="0" halign="center" valign="center">Controls</text>
+<path matrix="1 0 0 1 -176 4" fill="black">
 2 0 0 2 416 732 e
 </path>
-<path matrix="1 0 0 1 -168 -60" fill="gold">
-368 816 m
-368 776 l
-408 776 l
-408 816 l
-h
-</path>
-<text matrix="1 0 0 1 -172 -64" transformations="translations" pos="392 800" stroke="black" type="label" width="6.642" height="9.12" depth="1.95" halign="center" valign="center" size="Large" style="math">\int</text>
 <path matrix="1 0 0 1 -64 -60" fill="gold">
 368 816 m
 368 776 l
@@ -438,11 +434,12 @@ h
 </path>
 <text matrix="1 0 0 1 112 236" transformations="translations" pos="280 508" stroke="white" type="label" width="7.749" height="5.812" depth="0.83" halign="center" valign="center">+</text>
 <text matrix="1 0 0 1 116 240" transformations="translations" pos="276 484" stroke="white" type="label" width="7.749" height="5.812" depth="0.83" halign="center" valign="center" style="math">-</text>
-<path matrix="1 0 0 1 32 0" stroke="black" cap="1">
-152 750 m
-152 768 l
-224 768 l
-224 736 l
+<path stroke="black" cap="1">
+184 750 m
+184 768 l
+240 768 l
+240 736 l
+248 736 l
 </path>
 <path matrix="1 0 0 1 32 0" stroke="black" cap="1">
 152 748 m
@@ -450,7 +447,7 @@ h
 104 744 l
 </path>
 <path stroke="black">
-240 736 m
+280 736 m
 304 736 l
 304 736 l
 </path>
@@ -525,10 +522,10 @@ h
 </path>
 <path stroke="black">
 312 640 m
-272 640 l
-272 736 l
+292 640 l
+292 736 l
 </path>
-<path matrix="1 0 0 1 -144 4" fill="black">
+<path matrix="1 0 0 1 -124 4" fill="black">
 2 0 0 2 416 732 e
 </path>
 <path matrix="1.625 0 0 1 -287.5 0" stroke="black">
@@ -538,7 +535,7 @@ h
 <path matrix="1 0 0 1 60 -108" fill="black">
 2 0 0 2 416 732 e
 </path>
-<path matrix="-1 0 0 -1 336 1366" fill="red">
+<path matrix="-1 0 0 -1 336 1346.98" fill="red">
 172 708 m
 172 700 l
 156 700 l
@@ -549,5 +546,48 @@ h
 172 708 l
 </path>
 <text matrix="1 0 0 1 8 -16" transformations="translations" pos="272 780" stroke="black" type="label" width="21.101" height="6.808" depth="0" halign="center" valign="center">Gate</text>
+<path matrix="0.625 0 0 0.625 -38 356" fill="0.208 0.518 0.894">
+368 640 m
+368 576 l
+432 576 l
+432 640 l
+h
+</path>
+<path matrix="0.625 0 0 0.625 -38 486" stroke="1" pen="heavier">
+384 392 m
+384 400
+400 400
+400 392
+400 384
+416 384
+416 392 c
+</path>
+<path matrix="0.625 0 0 0.625 -38 496" stroke="1" pen="heavier">
+384 392 m
+384 400
+400 400
+400 392
+400 384
+416 384
+416 392 c
+</path>
+<path matrix="0.625 0 0 0.625 -38 478" stroke="1" pen="heavier">
+404 412 m
+396 404 l
+</path>
+<path stroke="black">
+232 736 m
+240 736 l
+240 736 l
+</path>
+<path fill="0.446 0.793 0.283">
+248 756 m
+248 716 l
+284 736 l
+248 756 l
+h
+</path>
+<text matrix="1 0 0 1 188 -60" transformations="translations" pos="80 768" stroke="black" type="label" width="20.244" height="6.812" depth="1.49" halign="center" valign="center">SW$_{1}$</text>
+<text matrix="1 0 0 1 -244 272" transformations="translations" pos="440 432" stroke="black" type="label" width="95.424" height="7.473" depth="2.49" halign="center" valign="center">$f_{\mathrm{cutoff}}\in \langle50, 200\rangle$ kHz</text>
 </page>
 </ipe>
