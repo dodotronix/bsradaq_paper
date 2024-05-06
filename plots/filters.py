@@ -43,7 +43,7 @@ plt.xticks(np.arange(0, 64, 9))
 plt.yticks(np.arange(0, 8, 1))
 
 ax.set_ylabel('Time [s]')
-ax.set_xlabel('Filters output [-]')
+ax.set_xlabel('Output filter index [-]')
 ax.set_zlabel('Normalized Amplitude')
 
 ax.view_init(38, -148)

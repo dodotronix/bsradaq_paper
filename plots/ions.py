@@ -37,7 +37,7 @@ plt.xticks(np.arange(0, 64, 9))
 
 
 plt.ylabel('Amplitude [-]')
-plt.xlabel('4xBunch sums [-]')
+plt.xlabel('Output filter index [-]')
 plt.xlim([0, 63])
 plt.grid(color=(0.7, 0.7, 0.7), linestyle='--', linewidth=0.6)
 
