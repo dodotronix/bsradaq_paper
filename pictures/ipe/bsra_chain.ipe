@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240316174439" modified="D:20240423124806"/>
+<info created="D:20240316174439" modified="D:20240506233653"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -380,11 +380,11 @@ h
 <path matrix="0.333333 0 0 1 169.333 12" fill="gray">
 12 0 0 12 272 784 e
 </path>
-<path stroke="red" pen="ultrafat" cap="1" join="1">
+<path stroke="blue" pen="ultrafat" cap="1" join="1">
 128 796 m
 232 796 l
 </path>
-<path matrix="0.796981 -0.604004 0.604004 0.796981 -399.923 221.786" stroke="blue" pen="ultrafat">
+<path matrix="0.796981 -0.604004 0.604004 0.796981 -399.923 221.786" stroke="red" pen="ultrafat">
 136 624.401 m
 120 613.845 l
 90.5097 0 0 -90.5097 128 704 83.7736 625.031 a
@@ -396,7 +396,7 @@ h
 80 0 0 -80 128 704 136 624.401 a
 h
 </path>
-<path matrix="0.796981 -0.604004 0.604004 0.796981 -399.923 221.786" stroke="red" pen="ultrafat">
+<path matrix="0.796981 -0.604004 0.604004 0.796981 -399.923 221.786" stroke="blue" pen="ultrafat">
 120 624.401 m
 136 613.845 l
 90.5097 0 0 90.5097 128 704 169.775 623.708 a
@@ -728,7 +728,7 @@ h
 184 832 l
 h
 </path>
-<path stroke="0.929 0.2 0.231" pen="ultrafat" cap="1">
+<path stroke="blue" pen="ultrafat" cap="1">
 248 796 m
 260 796 l
 </path>
