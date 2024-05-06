@@ -38,7 +38,7 @@ magnets belonging to the beam dump system is used. These magnets take \SI{3}{\mi
 ramp up their magnetic field~\cite{beam_dump_system}. This defines the size of
 an abort gap (AG) in the bunch train. Due to system imperfections, a residual amount of particles populate this gap.  The typical AG population levels are two to three orders of magnitude lower in comparison to a single LHC bunch.
 When the beam dump is initiated, the particles in AG do not receive full
-extraction force. That causes deflection towards the vacuum chamber. When a certain energy accumulates in the AG, magnets can quench. Thus,
+extraction force. That causes the particles in the AG to deflect towards the vacuum chamber. When a certain energy accumulates in the AG, magnets can quench. Thus,
 a~continuous monitoring of the AG population is necessary, which is the purpose
 of the AGM \cite{particles_in_ag}.\\
 This paper reviews the upgrade of the current AGM system in the LHC since 2010,
@@ -46,27 +46,30 @@ focusing on system architecture, analog electronics chain, temperature
 dependence, timing instabilities, and a comparison with the upgraded system.
 
 \section{System architecture}
-The AGM system comprises of three main parts. The first part is the optical front-end
-(OF), which includes~a pre-amplifier positioned beneath the vacuum chamber. The
-second part is a data acquisition system (DAQ) deployed on an FPGA platform
-located outside the radiation area. The third part involves a~control software (SW) that
-retrieves, interprets, and publishes the measured data, facilitating interaction
-with the instrument. The system architecture is illustrated in
-Fig.~\ref{fig:bsra_chain}, with each part labeled accordingly.
+The AGM system consists of three main parts:
+
+\begin{itemize}
+    \item \textbf{optical front-end (OF)}, which includes~a pre-amplifier located beneath the vacuum chamber,
+    \item \textbf{data acquisition system (DAQ)} deployed on an FPGA platform located outside the radiation area
+    \item \textbf{a~control software (SW)} that retrieves, interprets, and publishes the measured data, facilitating interaction with the instrument
+\end{itemize}
+
+The system architecture is illustrated in
+Fig.~\ref{fig:bsra_chain}, with each part labelled accordingly.
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{bsra_chain.pdf}
     \caption{BSRA Chain.}
     \label{fig:bsra_chain}
 \end{figure} 
-The diagram on the left depicts the layout of the LHC, with beam 1 represented
+The drawing depicts the layout of the LHC, with beam 1 represented
 in red and beam 2 in blue. It includes all four experiments (Alice, Atlas,
 LHCb, and CMS). The AGM is located at Point 4 (indicated by the yellow
 square), next to the CMS experiment. The Timing, Trigger, and Control system
 (TTC) is shown as a purple rectangle in the center of the LHC ring. This system
 receives RF clocking and broadcasts it into the network (TTC
-distribution)~\cite{ttc_distribution}. The AGM extracts bunch clock information
-(corresponding to the position of bunches) and turn clock information (marking
+distribution) through an optical fiber~\cite{ttc_distribution}. The AGM extracts bunch clock 
+(corresponding to the position of bunches) and turn clock (marking
 the start of a~turn) from the LHC timing block messages.\\
 Beam intensity is measured using the synchrotron light (SL) radiation, as indicated by the red line directed towards the Multi-channel photomultiplier
 (MCP-PMT) in the optical front-end (OF). The beam traverses first Neutral Density optical filters, which increases the system dynamic range. Subsequently, the signal is
