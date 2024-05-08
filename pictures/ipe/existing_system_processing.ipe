@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20211229201030" modified="D:20240407221359"/>
+<info created="D:20211229201030" modified="D:20240508164305"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -458,9 +458,7 @@ h
 144 720 l
 h
 </path>
-<text matrix="1 0 0 1 -56 -108" transformations="translations" pos="152 688" stroke="white" type="minipage" width="49.595" height="17.899" depth="12.93" halign="center" valign="center">\center Wishbone\\
-to\\
-VME</text>
+<text matrix="1 0 0 1 -56 -108" transformations="translations" pos="152 688" stroke="white" type="minipage" width="49.595" height="5.898" depth="0.91" halign="center" valign="center">\center VME</text>
 <path matrix="1.07692 0 0 1.5 -33.5385 -492" fill="0.898 0.647 0.039">
 176 720 m
 176 688 l
@@ -487,7 +485,7 @@ Memory</text>
 204 672 l
 h
 </path>
-<text matrix="1 0 0 1 -60 -116" transformations="translations" pos="180 656" stroke="black" type="label" width="13.975" height="6.808" depth="0" halign="center" valign="center">PC</text>
+<text matrix="1 0 0 1 -60 -116" transformations="translations" pos="180 656" stroke="black" type="label" width="20.479" height="6.808" depth="0" halign="center" valign="center">FEC</text>
 <path matrix="0.666667 0 0 0.5 -9.33333 300" fill="0.341 0.89 0.537">
 368 576 m
 368 544 l
