@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.28">
-<info created="D:20240318141705" modified="D:20240503131711"/>
+<info created="D:20240318141705" modified="D:20240508165217"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -548,7 +548,7 @@ VME</text>
 204 672 l
 h
 </path>
-<text transformations="translations" pos="180 656" stroke="black" type="label" width="13.975" height="6.808" depth="0" halign="center" valign="center">PC</text>
+<text transformations="translations" pos="180 656" stroke="black" type="label" width="20.479" height="6.808" depth="0" halign="center" valign="center">FEC</text>
 <text matrix="1 0 0 1 16 -4" transformations="translations" pos="68 732" stroke="black" type="label" width="23.108" height="6.808" depth="0" halign="center" valign="center">PMT</text>
 <text matrix="1 0 0 1 -8 -8" transformations="translations" pos="344 748" stroke="black" type="label" width="24.076" height="6.808" depth="0" halign="center" valign="center">FIFO</text>
 <path fill="0.965 0.827 0.176">
