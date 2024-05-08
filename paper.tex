@@ -51,7 +51,7 @@ That causes the particles in the AG to deflect towards the vacuum chamber, possi
 %
 Thus, a~continuous monitoring of the AG population is necessary, which is the purpose of the AGM \cite{particles_in_ag}.
 \\
-This paper discusses the upgrade of the current AGM system installed in the LHC since 2010, focusing on system architecture, analog electronics chain, temperature dependence, timing instabilities, and compares both systems.
+This paper discusses the upgrade of the operational AGM system installed in the LHC since 2010, focusing on system architecture, analog electronics chain, temperature dependence, timing instabilities, and compares both systems.
 
 \section{System architecture}
 The system architecture is shown in Fig.~\ref{fig:bsra_chain}.
@@ -69,7 +69,7 @@ The AGM consists of three main parts:
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{bsra_chain.pdf}
-    \caption{Overview of the BSRA system.}
+    \caption{Overview of the abort gap monitor system.}
     \label{fig:bsra_chain}
 \end{figure} 
 
@@ -111,11 +111,11 @@ This corresponds to a duty cycle of \SI{0.84}{\%}.
 \\
 %
 
-\subsection{Current system, used since 2010}
+\subsection{Operational system, used since 2010}
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{existing_system_processing.pdf}
-    \caption{Current system block diagram}
+    \caption{Operational AGM system overview}
     \label{fig:current_system_processing}
 \end{figure}
 
@@ -142,7 +142,7 @@ This process generates 64 values per single turn acquisition.
 %
 For each individual value, a standard deviation and mean value is calculated, and separately filtered by EMA. 
 %
-All collected data are stored in a dual-port RAM block shared to a front-end computer (FEC) via VME64 bridge.
+All collected data are stored in a RAM block shared to a front-end computer (FEC) via VME64 bridge.
 %
 The front-end acts as a server, publishing the data upstream through FESA~\cite{fesa}.
 
@@ -166,7 +166,7 @@ To address the long-term maintenance concerns, the original system described abo
 %
 An updated version of the AGM was installed \textit{in parallel to the actually running AGM}, so that we can compare behavior of both systems.
 %
-While the optics of the new system was copied from the old one, the DAQ and the front-end amplifier were replaced by a modern solution.
+While the optics of the new system was copied from the operational one, the DAQ and the front-end amplifier were replaced by a modern solution.
 %
 A new DC-coupled amplifier was designed, allowing for dynamic change of the gain.
 %
@@ -224,73 +224,82 @@ The tagger resamples LHC timing, and generates timing masks, allowing for identi
 %
 Tags are written into 2 LSBs of each word to indicate the position of the start of the bunch or turn.
 \\
-The start of the capture is synchronized through data tags to the AG.
 %
 The captured data are stored into a~FIFO, and integrated. 
 %
-The integrator begins summing values upon encountering the start of the bunch tag.
+The integrator begins summing values upon encountering the first bunch tag appearing within the acquisition window.
 %
 In parallel, it reads a stream of 64~values of a stored 'offset' from a pedestal memory (P[63:0]).
 %
 The offset is on-fly subtracted from the integrated data stream. 
 %
-Such pedestal subtraction is needed to remove measurement artifacts caused by the PMT gate opening and closing. 
+Such pedestal subtraction is needed to remove systematic effects, e.g., PMT gate opening. 
 %
-The output values are filtered by an EMA, results are kept in dual-port RAM, and read out through the VME64x bus~\cite{my_thesis}.
+The output values are filtered by an EMA, results are kept in RAM, and read out through the VME64x bus~\cite{my_thesis}.
 
 \begin{figure}[!tbh]
     \centering
-    \includegraphics[width=0.72\columnwidth]{installation.jpg}
+    \includegraphics[width=1.0\columnwidth]{installation.jpg}
     \caption{New AGM installed in the LHC IP4, next to BSRT.}
     \label{fig:installation}
 \end{figure}
 
 \subsection{Installation in the LHC}
 
-The AGM~OF and DAQ are located in the LHC IP4, near the LHC RF system. The
-new installation is depicted \textit{in retracted position} in Fig.~\ref{fig:installation}, highlighted by a~violet frame. Adjacent to its right is the currently utilized AGM, while
-the longitudinal density monitor (LDM) occupies the left side. All instruments share the same light source
-provided by the LHC beam synchronous light telescope (BSRT). The red
-arrow indicates the direction of the light entering the entire table.
-The light is split using multiple reflective foils into their respective destinations. Both AGM systems are equipped with LEDs installed atop of their reflective foils. These serve to perform functional tests.
-The
-AGM amplifier is mounted on the top of the optical front-end. This allows for easy access during interventions. The position of the installed Neutral Density Filters is pneumatically controlled.
+The new installation is depicted \textit{in retracted position} in Fig.~\ref{fig:installation}, highlighted by a~violet frame.
+%
+Adjacent to its right is the operational AGM, while the longitudinal density monitor (LDM) occupies the left side.
+%
+All instruments share the same light source provided by the LHC beam synchronous light telescope (BSRT).
+%
+The red arrow indicates the direction of the light entering the optical table.
+%
+The light is unequally split using multiple reflective foils into their respective destinations such, that the new AGM intercepts only 10\% of luminosity of the operational AGM.
+%
+Both AGMs are equipped with LEDs installed atop of their reflective foils.
+%
+These serve to perform functional tests.
+%
+The new AGM amplifier is mounted on the top of the optical front-end to ease the interventions.
 
-\section{First acquired plots}
-The initial measurements were conducted in November 2023 using the ion beam.
-The optical system divides the SL in a~1:8 ratio, resulting in significantly
-less light reaching the new system compared to the current one. Consequently,
-we anticipate lower deviation values for the system measuring light with higher
-intensity.
+\section{First measurements}
 \begin{figure}[!htb]
     \begin{center}
         \scalebox{0.54}{\input{plots/ions.pgf}}
-        \caption{Features comparison of the present and the upgraded AGMs.}
+        \caption{Comparison of the AGM measurements}
         \label{fig:comparison_chart}
     \end{center}
 \end{figure}
-Figure~\ref{fig:comparison_chart} displays the initial acquisition results of the new system compared to the current one. The red line represents
-measurements by the current system, while the blue line describes the new
-acquisition. Within the range of the $47^{\text{th}}$ to $63^{\text{rd}}$ bin, the gate is closed,
-resulting in a~white noise. However, the red distribution gradually decays and extends
-below zero due to artifacts stemming from analog integrators,
-exhibiting a~non-linear behavior. The new system effectively eliminates this
-artifact. The yellow distribution illustrates the value deviation of the new
-acquisition from the current system, with the relative value deviation depicted
-as well. In this measurement, the maximum deviation reaches~4\% in the region
-corresponding to the decay of the red distribution. Additionally, a~deviation of~2\% in
-the steep sections may be attributed to sample phase misalignment between the two systems.
+
+The initial measurements were conducted in November 2023 using the LHC ion beam.
+%
+Figure~\ref{fig:comparison_chart} shows the very first measurements, compared to the operational AGM.
+%
+Both measurements agree to 2\% within the operational area, signals however deviate starting at $47^{\text{th}}$ bin, resulting in maximum relative error of 4\%.
+%
+This is surprising, as no signal shall be present - the PMT gates are closed. 
+%
+However, the operational AGM signal gradually decays, and extends below zero.
+%
+This effect is systematic, and is mostly caused by analogue signal processing chain and non-ideal analogue integration.
+%
+The new system effectively eliminates this.
+
 
 \section{Summary}
-The new AGM has been integrated onto the CERN BI standard platform VFC-HD
-carrier, streamlining maintenance procedures. By eliminating IBMS cards
-featuring the lhcb2002b ASIC, the design has addressed issues related to
-cumbersome calibration and artifacts in the output plots. \\
-The system is installed at LHC IP4, alongside the current AGM, collecting
-data for further analysis. To conduct a comprehensive reliability test and
-verify proper functionality, additional data collection is required. Initial
-observations indicate that despite receiving less light, the new system can
-still achieve comparable performance to the current AGM.
+The presented text describes upgrade of the operational abort gap monitor. 
+%
+The operational system, using obsolete parts, has to be replaced in the near future by a new AGM to assure long-term maintainability.
+%
+A fully digital solution was developed.
+%
+To assess its performance, it was installed in the LHC, on beam 1, in parallel with the operational AGM.
+%
+Very first measurements from November 2023 show exceptionally good performance even using considerably lower amount of intercepted light.
+%
+The upgraded AGM is now collecting data from the LHC 2024 proton run.
+%
+Further analysis in terms of accuracy, reliability, and stability has to be conducted, with the ultimate goal of replacing both operational AGMs by their new versions.
 
 \input{bibliography}
 
