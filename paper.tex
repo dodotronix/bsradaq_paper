@@ -29,7 +29,7 @@ CERN, Geneva, Switzerland}
 \end{abstract}
 
 \section{Introduction}
-During the flat-top phase, the LHC ring stores up to \SI{350}{MJ} of beam energy, spread across 2808 bunches with an average beam transverse size under \SI{1}{mm}.
+During its operation at flat top energy, the LHC ring stores up to \SI{350}{MJ} of beam energy, spread across 2808 bunches with an average beam transverse size under \SI{1}{mm}.
 %
 This high energy density can melt metallic surfaces and quench
 superconducting magnets, posing a risk to the machine~\cite{LHC_report}.
@@ -38,45 +38,47 @@ To safely extract the beam from the circulating beam lines, a series of kicker m
 %
 Kicker magnets need \SI{3}{\micro\second} to ramp up their magnetic field~\cite{beam_dump_system}.
 %
-This defines the size of an abort gap (AG) in the bunch train.
+This defines the size of an Abort Gap (AG) in the bunch train.
 %
 Due to system imperfections, a residual amount of particles populates this gap.
 %
 The typical AG population levels are two to three orders of magnitude lower in comparison to a single pilot LHC bunch.
 %
-When the beam dump is initiated, the particles in AG do not receive full
-extraction force.
+When the beam dump is initiated, the particles in the AG do not receive full
+extraction force, are lost on their way to the dump line and can generate damages or magnet quenches.  
 %
-That causes the particles in the AG to deflect towards the vacuum chamber, possibly causing the magnets to quench. 
+%That causes the particles in the AG to
+%are deflects towards the vacuum chamber, possibly causing the magnets to quench. 
 %
-Thus, a~continuous monitoring of the AG population is necessary, which is the purpose of the AGM \cite{particles_in_ag}.
+The purpose of the AGM \cite{particles_in_ag} is to 
+a~continuous monitoring of the AG population in order to trigger the abort gap cleaning when  necessary. 
 \\
-This paper discusses the upgrade of the operational AGM system installed in the LHC since 2010, focusing on system architecture, analog electronics chain, temperature dependence, timing instabilities, and compares both systems.
+This paper discusses the upgrade of the operational AGM installed in the LHC since 2010, detailing the system architecture and analog electronics chain, and provide a first performance comparison  of both systems.
 
 \section{System architecture}
 The system architecture is shown in Fig.~\ref{fig:bsra_chain}.
 %
 It depicts the layout of the LHC, with beam 1 represented in blue and beam 2 in red.
 %
-The AGM consists of three main parts:
+The LHC AGM consists of three main parts:
 %
 \begin{enumerate}
-    \item \textbf{an optical front-end (OF)}, which includes~a pre-amplifier, located beneath the vacuum chamber,
-    \item \textbf{a data acquisition system (DAQ)} deployed on an FPGA platform located outside the radiation area
-    \item \textbf{a control software (SW)} that retrieves, interprets, and publishes the measured data,
+    \item \textbf{an optical front-end (OF)}, which includes~a pre-amplifier, located in the LHC tunnel,
+    \item \textbf{a data acquisition system (DAQ)} deployed on an FPGA platform located outside the radiation area,
+    \item \textbf{a control software (SW)} that retrieves, interprets, and publishes the measured data.
 \end{enumerate}
 %
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{bsra_chain.pdf}
-    \caption{Overview of the abort gap monitor system.}
+    \caption{Overview of an abort gap monitor system.}
     \label{fig:bsra_chain}
 \end{figure} 
 
 %
-and is installed at LHC IP4 together with other beam diagnostic, and the LHC low-level RF system.
+The AGM is installed at LHC IP4 as one of the beam diagnostics based on synchrotron radiation (SR) detection. %together with other beam diagnostic, and the LHC low-level RF system.
 %
-The LHC timing distribution (TTC) broadcasts through an optical cable - along the LHC - turn and bunch marks, together with other information, as e.g., actual beam energy.~\cite{ttc_distribution}.
+The LHC timing distribution (TTC) broadcasts through an optical cable - along the LHC - turn and bunch marks, together with other information, as e.g., actual beam energy~\cite{ttc_distribution}.
 %
 The bunch and turn marks identify the start of each individual bunch, and the position of the first bunch in a turn.   
 %
@@ -84,11 +86,13 @@ The AGM uses this information to re-synchronize its acquisition window to the AG
 %
 \subsection{Working principle}
 %
-The particle population in the AG is measured intercepting the synchrotron radiation (SR). 
+An in-vacuum mirror intercepts  SR  emitted by protons passing through magnets located approximately 27 meters upstream. It then directs the radiation to a dedicated optical line installed beneath the beam pipe.
+
+%The particle population in the AG is measured intercepting the synchrotron radiation (SR). 
 %
-The AGM uses a Multi-channel photo-multiplier (PMT) to convert the SR light, into an electric signal.
+The AGM is designed to collect part of th extracted SR on  a Multi-channel photo-multiplier (PMT), which converts it  into an electric signal.
 %
-Additional Neutral Density filters in the optical front-end (OF) allow  changing the light intensity intercepted by the PMT, thus optimize the system dynamic range.
+Neutral Density filters in the optical front-end (OF) allow  changing the light intensity intercepted by the PMT, thus optimize the system dynamic range.
 % 
 Subsequently, the electric signal is amplified, and transmitted over a \SI{100}{m}-long cable to a Data Acquisition (DAQ) system.
 %
@@ -121,15 +125,15 @@ This corresponds to a duty cycle of \SI{0.84}{\%}.
 
 The currently used system is shown in Fig.~\ref{fig:current_system_processing}.
 %
-The optical path, including filters, is common to both the actual version of the system, and the proposed upgrade. As well, the PMT type is the same in both systems.
+The optical path, including filters, is common to both the operational version of the system, and the proposed upgrade. As well, the PMT type is the same in both systems.
 
-The actual setup uses a digital acquisition board (DAB64x) equipped by Altera Stratix EP1S40 FPGA, used for the data processing.
+The operational setup uses a digital acquisition board (DAB64x) equipped by Altera Stratix EP1S40 FPGA, used for the data processing.
 %
 The DAB64x hosts two Individual Bunch Measurement Systems (IBMS)~\cite{ibms}, integrating the analogue input signal via the LHCb2002 ASIC~\cite{lhcb_asic}.
 %
 The analogue signal is provided by MCP PMT, and it is amplified before the integration to improve on the measurement SNR.
 %
-The amplifier used is HAMAMATSU C5594~\cite{bsra_first_operation}, featuring a static voltage gain of \SI{36}{dBV}, in the bandwidth of \SI{50}{kHz} to \SI{1.5}{GHz}.
+The amplifier used is HAMAMATSU C5594~\cite{bsra_first_operation}, featuring a fixed voltage gain of \SI{36}{dBV}, in the bandwidth of \SI{50}{kHz} to \SI{1.5}{GHz}.
 %
 The LHCb2002 in the IBMS integrates the input amplified signal in \SI{25}{\nano\second} intervals, producing a stream of analogue 'DC-like' values.
 %
@@ -162,9 +166,7 @@ The amplifier gain is also fixed, so the ADC cannot optimally re-use available d
 The system relies on an outdated FPGA platform, and the development SW is no more compatible with the latest operating systems. 
 
 \section{System Upgrade}
-To address the long-term maintenance concerns, the original system described above has to be completely refurbished. 
-%
-An updated version of the AGM was installed \textit{in parallel to the actually running AGM}, so that we can compare behavior of both systems.
+To address the long-term maintenance concerns, the original system described above has to be refurbished. 
 %
 While the optics of the new system was copied from the operational one, the DAQ and the front-end amplifier were replaced by a modern solution.
 %
@@ -175,10 +177,12 @@ Original analogue integrators were replaced by a 4-channel 500MSPS 14-bit FMC-fo
 FMC ADC module is installed into an in-house built FPGA carrier (VFC-HD), featuring 2$\times 8$GBits DDR3 memories and a large Arria V FPGA.
 %
 Such solution eliminates completely the need for analogue integrators, as all the signal processing can be implemented in the gateware.  
+\\
+An updated version of the AGM was in 2023 installed \textit{in parallel to the actually running AGM}, so that we can compare behavior of both systems.
 
 \subsection{New DC-coupled amplifier}
 
-Figure \ref{fig:amp_schematics} illustrates the block diagram of the new amplifier.
+Figure \ref{fig:amp_schematics} depicts the block diagram of the new amplifier.
 %
 The amplifier was designed to match the used PMT, while being highly configurable.
 % A = U^2/(i^2 * R^2) => A_dB = 20*log10(U/(i*R))
@@ -222,10 +226,10 @@ To compute integrals over 4$\times$~\SI{25}{\nano\second} bunch slots, the syste
 %
 The tagger resamples LHC timing, and generates timing masks, allowing for identification of bunch and turn starts within each individual ADC frame.
 %
-Tags are written into 2 LSBs of each word to indicate the position of the start of the bunch or turn.
+Tags are written into 2 unused LSBs of each word to indicate the position of the start of the bunch or turn.
 \\
 %
-The captured data are stored into a~FIFO, and integrated. 
+The tagged samples are stored into a~FIFO, and integrated. 
 %
 The integrator begins summing values upon encountering the first bunch tag appearing within the acquisition window.
 %
@@ -263,6 +267,8 @@ These serve to perform functional tests.
 The new AGM amplifier is mounted on the top of the optical front-end to ease the interventions.
 
 \section{First measurements}
+
+\vspace{-5mm}
 \begin{figure}[!htb]
     \begin{center}
         \scalebox{0.54}{\input{plots/ions.pgf}}
@@ -271,6 +277,7 @@ The new AGM amplifier is mounted on the top of the optical front-end to ease the
     \end{center}
 \end{figure}
 
+\vspace{-5mm}
 The initial measurements were conducted in November 2023 using the LHC ion beam.
 %
 Figure~\ref{fig:comparison_chart} shows the very first measurements, compared to the operational AGM.
@@ -289,7 +296,7 @@ The new system effectively eliminates this.
 \section{Summary}
 The presented text describes upgrade of the operational abort gap monitor. 
 %
-The operational system, using obsolete parts, has to be replaced in the near future by a new AGM to assure long-term maintainability.
+The operational system has to be replaced in the near future by a new AGM to assure long-term maintainability.
 %
 A fully digital solution was developed.
 %
