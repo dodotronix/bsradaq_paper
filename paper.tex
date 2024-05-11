@@ -89,9 +89,9 @@ An in-vacuum mirror intercepts  SR  emitted by protons passing through magnets l
 
 %The particle population in the AG is measured intercepting the synchrotron radiation (SR). 
 %
-The AGM collects part of the extracted SR via Multi-channel plate photo-multiplier (MCP-PMT)converting it into an electric signal.
+The AGM collects part of the extracted SR via Multi-channel plate photo-multiplier (MCP-PMT) converting it into an electric signal.
 %
-Neutral density filters in the optical front-end (OF) allow  changing the light intensity intercepted by the MCP-PMT, thus optimizing the system dynamic range.
+Neutral density filters in the optical front-end (OF) allow  changing the light intensity, thus optimizing the system dynamic range.
 % 
 Subsequently, the electric signal is amplified and transmitted over a \SI{100}{m}-long cable to DAQ.
 %
@@ -178,13 +178,13 @@ To address the long-term maintenance concerns, the original system described abo
 %
 While the optics of the new system was copied from the operational one, the DAQ and the front-end amplifier were replaced by a modern solution.
 %
-A new DC-coupled amplifier was designed, thus allowing enahncing the overall dynamic range. 
+A new DC-coupled amplifier was designed, thus allowing enhancing the overall dynamic range. 
 %
-It was decided to change from analog to digital instegration of the PMT signal, via a DAQ based on  a 4-channel \SI{500}{MSPS} 14-bit FMC-form factor sampler.
+It was decided to change from analog to digital integration of the MCP-PMT signal, via a DAQ based on  a 4-channel \SI{500}{MSPS} 14-bit FMC-form factor sampler.
 %
 The FMC ADC module is installed into an in-house built FPGA carrier (VFC-HD), featuring 2$\times 8$GBits DDR3 memories and a large Arria V FPGA.
 %
-Such a solution eliminates completely the need for the obsolete analogue integrators, as all the signal processing can be implemented in the gateware.  
+Such a solution eliminates completely the need for the obsolete analogue integrators, as all the signal processing can be implemented in the gateware.
 \\
 In early 2023, the new AGM system was installed alongside the legacy system to facilitate an easy comparison of both systems' performance.
 %An updated version of the AGM was in 2023 installed \textit{in parallel to the actually running AGM}, so that we can compare behavior of both systems.
@@ -214,7 +214,7 @@ The alarm threshold setting is stored through the UART into the amplifier's non-
 %it protects 
 the MCP-PMT is protected also after a power reset. %immediately at the amplifier power-up.
 %
-The alarm status is also transmitted to the gateware.
+%The alarm status is also transmitted to the gateware.
 %
 \begin{figure}[!tbh]
     \centering
@@ -241,21 +241,21 @@ The tagger resamples the LHC timing, and generates timing masks that  provide ea
 bunch and turn start markers. 
 %within each individual ADC frame.
 %
-Tags are inserted into the  2 unused least significan bits (LSBs) of each word to indicate the start of the  the bunch or turn.
+Tags are inserted into the  2 unused least significant bits (LSBs) of each word to indicate the start of the  the bunch or turn.
 \\
 %
-The tagged samples are stored in a~FIFO ((First In, First Out), and then integrated. 
+The tagged samples are stored in a~FIFO (First In, First Out), and then integrated. 
 %
 The integrator is triggered %begins summing values 
-by the  the first bunch tag appearing within the acquisition window.
+by the first bunch tag appearing within the acquisition window.
 %
-In parallel to the integral (sum of the values), the system reads a stream of 64~values of a stored 'offset' from a pedestal memory (P[63:0]).
+In parallel the system reads a stream of 64~values of a stored 'offset' from a pedestal memory (P[63:0]).
 %
 The offset is subtracted  from the integrated data stream on the fly.
 %
 Such pedestal subtraction is needed to remove systematic effects, e.g. related to the  MCP-PMT gate opening. 
 %
-The output values are filtered by an Exponential Moving Average (EMA), the results are stored  in RAM, and then read out through the VME64x bus~\cite{my_thesis}.
+The output values are filtered by EMA, the results are stored  in RAM, and then read out through the VME64x bus~\cite{my_thesis}.
 
 \begin{figure}[!tbh]
     \centering
@@ -268,19 +268,21 @@ The output values are filtered by an Exponential Moving Average (EMA), the resul
 
 The new installation, when \textit{in retracted position} is  highlighted by a~violet frame in Fig.~\ref{fig:installation}, 
 %
-The legacy AGM  (on the right) and  the longitudinal density monitor (LDM, on the left) are also partially visible in the same figure. % Adjacent to its right is the operational AGM, while the longitudinal density monitor (LDM) occupies the left side.
+The operational AGM  (on the right) and  the longitudinal density monitor (LDM, on the left) are also partially visible in the same figure. 
+% Adjacent to its right is the operational AGM, while the longitudinal density monitor (LDM) occupies the left side.
 %
-All these instruments are part of the LHC beam synchronous light telescope (BSRT) and use part of the synchrotron radiation extracted by the in-vacuum extraction system sitting above the telescope. %  instruments share the same light source provided by the LHC beam synchronous light telescope (BSRT).
+All these instruments are part of the LHC beam synchrotron light telescope (BSRT) and use part of the synchrotron radiation extracted by the in-vacuum extraction system sitting above the BSRT.
+% instruments share the same light source provided by the LHC beam synchronous light telescope (BSRT).
 %
 The red arrow indicates the direction of the light entering the optical table.
 %
-The light is unequally split using multiple reflective foils into their respective destinations.  The new AGM receives  only 10\% of the radiation sent to the legacy AGM.
+The light is unequally split using multiple reflective foils into their respective destinations.  The new AGM receives  only 10\% of the radiation sent to the operational AGM.
 %
 Both AGMs are equipped with LEDs installed  on top of their reflective foils for functional and calibration tests. 
 %
 %These serve to perform functional tests.
 %
-It is worth noting  that the new AGM amplifier is mounted on top of the optical front-end to facilitate  interventions.
+The new AGM amplifier is mounted on the top of the optical front-end to ease the interventions.
 
 \section{First measurements}
 
@@ -294,15 +296,15 @@ It is worth noting  that the new AGM amplifier is mounted on top of the optical 
 \end{figure}
 
 \vspace{-5mm}
-After few tests and few adjustements in the system layout The initial measurements were conducted in November 2023 using the LHC ion beam.
+Initial measurements were conducted in November 2023 using the LHC ion beam.
 %
 Figure~\ref{fig:comparison_chart} shows the very first measurements, compared to the operational AGM.
 %
-Both measurements agree to 2\% within the operational area, signals however deviate starting at $47^{\text{th}}$ bin, resulting in maximum relative error of 4\%.
+Both measurements agree to 2\% within the operational area, but deviate starting at $47^{\text{th}}$ bin, resulting in maximum relative error of 4\%.
+Despite the MCP-PMT gate is closed at that point and no signal is present, the operational AGM signal gradually decays, and extends below zero.
 %
-This is surprising, as no signal shall be present - the MCP-PMT gates are closed. 
-%
-However, the operational AGM signal gradually decays, and extends below zero.
+%Whoops, no signal shall be present - the MCP-PMT gates are closed.
+%This is surprising, as no signal shall be present - the MCP-PMT gates are closed. 
 %
 This effect is systematic, and is mostly caused by analog signal processing chain and non-ideal analogue integration.
 %
@@ -310,7 +312,7 @@ The new system effectively eliminates this.
 
 
 \section{Summary}
-The presented text describes upgrade of the operational abort gap monitor. 
+This paper describes upgrade of the operational AGM.
 %
 The operational system has to be replaced in the near future by a new AGM to assure long-term maintainability.
 %
