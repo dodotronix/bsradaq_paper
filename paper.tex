@@ -116,16 +116,15 @@ This corresponds to a~duty cycle of \SI{0.84}{\%}.
 %
 
 \subsection{Operational system, used since 2010}
+The currently used system is shown in Fig.~\ref{fig:current_system_processing}.
+%
+The optical path, including filters and MCP-PMT, is common to both the operational version of the system, and the proposed upgrade.
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{existing_system_processing.pdf}
     \caption{Operational AGM system overview}
     \label{fig:current_system_processing}
 \end{figure}
-
-The currently used system is shown in Fig.~\ref{fig:current_system_processing}.
-%
-The optical path, including filters and MCP-PMT, is common to both the operational version of the system, and the proposed upgrade.
 %As well, the PMT type is the same in both systems.
 The operational setup utilizes a digital acquisition board (DAB64x) incorporating an Altera Stratix EP1S40 FPGA for data processing.
 %
@@ -224,14 +223,14 @@ the MCP-PMT is protected also after a power reset. %immediately at the amplifier
 \end{figure}
 %
 \subsection{Acquisition system}
+The new DAQ (Fig.~\ref{fig:bsra_daq}) receives asynchronous data samples as a stream of four frames every~\SI{8}{\nano s}, each corresponding to one channel.
+%
 \begin{figure}[!tbh]
     \centering
     \includegraphics[width=\columnwidth]{bsra_daq.pdf}
     \caption{Acquisition system schematics.}
     \label{fig:bsra_daq}
 \end{figure}
-%
-The new DAQ (Fig.~\ref{fig:bsra_daq}) receives asynchronous data samples as a stream of four frames every~\SI{8}{\nano s}, each corresponding to one channel.
 %
 Each frame contains 4$\times$16-bit words, storing left-aligned 14-bit ADC samples. 
 %
