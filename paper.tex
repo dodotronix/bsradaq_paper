@@ -34,7 +34,7 @@ The LHC ring stores up to \SI{350}{MJ} of beam energy, when operating at the fla
 This high energy density can melt metallic surfaces and quench
 superconducting magnets, posing a risk to the machine~\cite{LHC_report}.
 %
-To safely extract the beam from the circulating beam lines, a series of kicker magnets belonging to the beam dump system is used. 
+To safely extract the beam from the circulating beam lines, a~series of kicker magnets belonging to the beam dump system is used. 
 %
 Kicker magnets need \SI{3}{\micro\second} to ramp up their magnetic field~\cite{beam_dump_system}.
 %
@@ -93,7 +93,7 @@ The AGM collects part of the extracted SR via Multi-channel plate photo-multipli
 %
 Neutral density filters in the optical front-end (OF) allow  changing the light intensity, thus optimizing the system dynamic range.
 % 
-Subsequently, the electric signal is amplified and transmitted over a \SI{100}{m}-long cable to DAQ.
+Subsequently, the electric signal is amplified and transmitted over a~\SI{100}{m}-long cable to DAQ.
 %
 The DAQ integrates the incoming signal in \SI{100}{\nano\second} intervals within a \SI{6.4}{\micro\second}-long acquisition window.
 %
@@ -111,7 +111,7 @@ The measurement period depends on the specific MCP-PMT (HAMAMATSU R5916U-50) tha
 %
 With a gate pulse duration of \SI{3}{\micro\second} and one LHC revolution period of \SI{89}{\micro\second}, the measurements are taken every $4^{\text{th}}$ clock cycle (\SI{356}{\micro\second}).
 %
-This corresponds to a duty cycle of \SI{0.84}{\%}.
+This corresponds to a~duty cycle of \SI{0.84}{\%}.
 \\
 %
 
@@ -180,7 +180,7 @@ While the optics of the new system was copied from the operational one, the DAQ 
 %
 A new DC-coupled amplifier was designed, thus allowing enhancing the overall dynamic range. 
 %
-It was decided to change from analog to digital integration of the MCP-PMT signal, via a DAQ based on  a 4-channel \SI{500}{MSPS} 14-bit FMC-form factor sampler.
+It was decided to change from analog to digital integration of the MCP-PMT signal, via a DAQ based on  a~4-channel \SI{500}{MSPS} 14-bit FMC-form factor sampler.
 %
 The FMC ADC module is installed into an in-house built FPGA carrier (VFC-HD), featuring 2$\times 8$GBits DDR3 memories and a large Arria V FPGA.
 %
@@ -196,9 +196,9 @@ Figure \ref{fig:amp_schematics} depicts the block diagram of the new amplifier.
 The amplifier was designed to match the AGM MCP-PMT and to be  highly configurable.
 % A = U^2/(i^2 * R^2) => A_dB = 20*log10(U/(i*R))
 %
-A universal asynchronous receiver-transmitter (UART) interface allows for setting a trans-impedance gain.
+A universal asynchronous receiver-transmitter (UART) interface allows for setting a~trans-impedance gain.
 %
-The gain is adjustable in a range of \SI{5.8}{mV/\micro A} to \SI{1.1}{V/\micro A}.
+The gain is adjustable in a~range of \SI{5.8}{mV/\micro A} to \SI{1.1}{V/\micro A}.
 %
 This corresponds to a~voltage gain of \SI{41}{dB} to \SI{87}{dB} in a $50\Omega$ system.
 %
