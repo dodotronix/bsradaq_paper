@@ -9,6 +9,10 @@ CERN, Geneva, Switzerland}
 	
 \maketitle
 
+% NOTE: I (David) had to remove from abstract the proton beam info, because we did not
+% have enough time to work with protons. This article only compares ION beams so far.
+% I'll try to tweak the submitted abstract as well - if that is still possible. If not,
+% the correct abstract will be shown in the article.
 \begin{abstract}
     The LHC Abort Gap Monitor (AGM) is part of the LHC machine protection
     system (MPS) and is designed to measure the particle population in a \SI{3}{\micro\second}
@@ -24,8 +28,7 @@ CERN, Geneva, Switzerland}
     digital domain not only offers more scalability but also better determinism
     and reliability. This work presents the new technical solution for the
     acquisition chain, compares the characteristics of both implementations,
-    and showcases recent measurements conducted on the LHC ion and proton
-    beams.
+    and showcases recent measurements conducted on the LHC ion beams.
 \end{abstract}
 
 \section{Introduction}
@@ -38,19 +41,19 @@ To safely extract the beam from the circulating beam lines, a~series of kicker m
 %
 Kicker magnets need \SI{3}{\micro\second} to ramp up their magnetic field~\cite{beam_dump_system}.
 %
-This defines the size of an Abort Gap (AG) in the bunch train.
+This defines the duration of an Abort Gap (AG) in the bunch train.
 %
 Due to system imperfections, a residual amount of particles populates this gap.
 %
 The typical AG population levels are two to three orders of magnitude lower in comparison to a single pilot LHC bunch.
 %
 When the beam dump is initiated, the particles in the AG do not receive full
-extraction force, leading to losses along the dump line that could result in damage or magnet quenching.
+extraction kicks, leading to losses along the dump line that could result in damage or magnet quenching.
 %
 %That causes the particles in the AG to
 % deflect towards the vacuum chamber, possibly causing the magnets to quench. 
 %
-The purpose of the AGM is a~continuous monitoring of the AG population in order to trigger the abort gap cleaning when  necessary \cite{particles_in_ag} .
+The purpose of the AGM is a~continuous monitoring of the AG population in order to trigger the abort gap cleaning when  necessary \cite{particles_in_ag}.
 \\
 This paper discusses the upgrade of the operational AGM installed in the LHC since 2010, detailing the system architecture and analogue electronics chain, and provides a first performance comparison  of both systems.
 
@@ -77,7 +80,7 @@ The LHC AGM consists of three main parts:
 %
 The AGM is installed at LHC IP4 as one of the beam diagnostics based on synchrotron radiation (SR) detection. %together with other beam diagnostic, and the LHC low-level RF system.
 %
-The LHC timing distribution (TTC) broadcasts through an optical cable - along the LHC - turn and bunch marks, together with other information, as e.g., actual beam energy~\cite{ttc_distribution}.
+The LHC timing distribution (TTC) broadcasts along the LHC turn and bunch marks, together with other information, as e.g., actual beam energy~\cite{ttc_distribution}.
 %
 The bunch and turn marks identify the start of each individual bunch, and the position of the first bunch in a turn.   
 %
@@ -85,13 +88,13 @@ The AGM uses this information to re-synchronize its acquisition window to the AG
 %
 \subsection{Working principle}
 %
-An in-vacuum mirror intercepts  SR  emitted by protons passing through magnets located approximately \SI{27}{m} upstream. It then directs the radiation to a dedicated optical line installed beneath the beam pipe.
+An in-vacuum mirror intercepts  SR  emitted by particles passing through magnets located approximately \SI{27}{m} upstream. It then directs the radiation to a dedicated optical line installed beneath the beam pipe.
 
 %The particle population in the AG is measured intercepting the synchrotron radiation (SR). 
 %
 The AGM collects part of the extracted SR via Multi-channel plate photo-multiplier (MCP-PMT) converting it into an electric signal.
 %
-Neutral density filters in the optical front-end (OF) allow  changing the light intensity, thus optimizing the system dynamic range.
+Neutral density filters in the optical front-end (OF) allow  changing the light intensity, thus optimize the system dynamic range.
 % 
 Subsequently, the electric signal is amplified and transmitted over a~\SI{100}{m}-long cable to DAQ.
 %
@@ -138,8 +141,7 @@ The amplified signal is fed to the LHCb2002 in the IBMS integrating in \SI{25}{\
 %
 These are subsequently sampled by a \SI{40}{MSPS} 14-bit ADC, resulting in a digital data stream, where each value corresponds to an integral of an individual LHC \SI{25}{ns} bucket.
 %
-The DAQ gateware sums four consecutive samples to compute the
-proton charge present on a~\SI{100}{ns} interval.
+The DAQ gateware sums four consecutive samples to compute the charge present on a~\SI{100}{ns} interval.
 %
 This process generates 64 values per single turn acquisition.
 %
@@ -147,7 +149,7 @@ For each individual value, a standard deviation and mean value is calculated, an
 %
 All collected data are stored in a RAM block shared to a front-end computer (FEC) via VME64 bridge.
 %
-A dedicated  front-end  server, publishes the data stream through FESA~\cite{fesa}.
+A dedicated  front-end  server publishes the data stream through FESA~\cite{fesa}.
 
 
 \subsection{Reasons for Upgrade}
@@ -165,27 +167,34 @@ Furthermore, each integrator is unique, with varying gain, switching characteris
 %gateware must correct these effects.
 %
 In addition, the amplifier bandwidth (50 kHz-1,5 GHz) %increases system complexity, as
-required a correction for the missing DC component and the amplifier gain is fixed,  for which  the overall dynamic range is limtied by the ADC. 
-%needs to be implemented.
-%
-%dynamic range is not fully exploited. cannot optimally re-use available dynamic range.
+requires a correction for the missing DC component.
+%%%%%%%% and the amplifier gain is fixed,  for which  the overall dynamic range is limited by the ADC. 
+% To Federico: The statement above is not true. ADC dynamic range is determined solely by number of bits. 
+% What changes is the SNR, which is defined as power in signal amplitude wrt to power of noise. 
+% In ideal conditions we want our signal to be amplified such, that we use maximum available ADC 
+% analogue signal amplitude to increase signal to noise ratio. ADC dynamic range is constant.
+% I'd replace it by following:
+The amplifier gain is fixed,  so the signal amplitude cannot be adapted to optimally re-use the available ADC dynamic range. 
+% this is what happens electrically.
 \\
-The system relies on an outdated FPGA platform, and the development SW is no more compatible with the latest operating systems. 
+The system also relies on an outdated FPGA platform, and the development SW is no more compatible with the latest operating systems. 
 
 \section{System Upgrade}
 To address the long-term maintenance concerns, the original system described above has to be refurbished. 
 %
 While the optics of the new system was copied from the operational one, the DAQ and the front-end amplifier were replaced by a modern solution.
 %
-A new DC-coupled amplifier was designed, thus allowing enhancing the overall dynamic range. 
+A new DC-coupled variable gain amplifier was designed.
 %
-It was decided to change from analog to digital integration of the MCP-PMT signal, via a DAQ based on  a~4-channel \SI{500}{MSPS} 14-bit FMC-form factor sampler.
+It was decided to change from analog to digital integration of the MCP-PMT signal.
+%
+The signal is digitized by a DAQ based on a~4-channel \SI{500}{MSPS} 14-bit FMC-form factor sampler.
 %
 The FMC ADC module is installed into an in-house built FPGA carrier (VFC-HD), featuring 2$\times 8$GBits DDR3 memories and a large Arria V FPGA.
 %
-Such a solution eliminates completely the need for the obsolete analogue integrators, as all the signal processing can be implemented in the gateware.
+Such a solution eliminates completely the need for the analogue integrators, as all the signal processing can be implemented in the gateware.
 \\
-In early 2023, the new AGM system was installed alongside the legacy system to facilitate an easy comparison of both systems' performance.
+In early 2023, the new AGM system was installed alongside the legacy system to compare both systems' performance.
 %An updated version of the AGM was in 2023 installed \textit{in parallel to the actually running AGM}, so that we can compare behavior of both systems.
 
 \subsection{New DC-coupled amplifier}
@@ -201,7 +210,7 @@ The gain is adjustable in a~range of \SI{5.8}{mV/\micro A} to \SI{1.1}{V/\micro 
 %
 This corresponds to a~voltage gain of \SI{41}{dB} to \SI{87}{dB} in a $50\Omega$ system.
 %
-A programmable DC-offset compensation is implemented in the amplifier.
+A programmable DC-offset compensation is implemented.
 %
 It can be used - together with variable gain - to optimize the signal's amplitude for the ADC.
 %
@@ -225,7 +234,7 @@ the MCP-PMT is protected also after a power reset. %immediately at the amplifier
 \subsection{Acquisition system}
 The new DAQ (Fig.~\ref{fig:bsra_daq}) receives asynchronous data samples as a stream of four frames every~\SI{8}{\nano s}, each corresponding to one channel.
 %
-\begin{figure}[!tbh]
+\begin{figure}[!t]
     \centering
     \includegraphics[width=\columnwidth]{bsra_daq.pdf}
     \caption{Acquisition system schematics.}
@@ -243,16 +252,18 @@ bunch and turn start markers.
 Tags are inserted into the  2 unused least significant bits (LSBs) of each word to indicate the start of the  the bunch or turn.
 \\
 %
+% To Federico: I would personally remove definitions of UART and FIFO, as they are a 'common knowledge'. It would
+% save some space. We need to gain somewhere a half of paragraph to fit into 3 pages + refs.
 The tagged samples are stored in a~FIFO (First In, First Out), and then integrated. 
 %
 The integrator is triggered %begins summing values 
 by the first bunch tag appearing within the acquisition window.
 %
-In parallel the system reads a stream of 64~values of a stored 'offset' from a pedestal memory (P[63:0]).
+In parallel, the system reads a stream of 64~values of a stored 'offset' from a pedestal memory (P[63:0]).
 %
 The offset is subtracted  from the integrated data stream on the fly.
 %
-Such pedestal subtraction is needed to remove systematic effects, e.g. related to the  MCP-PMT gate opening. 
+Such pedestal subtraction is needed to remove systematic effects, e.g. related to the MCP-PMT gate opening. 
 %
 The output values are filtered by EMA, the results are stored  in RAM, and then read out through the VME64x bus~\cite{my_thesis}.
 
@@ -262,10 +273,11 @@ The output values are filtered by EMA, the results are stored  in RAM, and then 
     \caption{New AGM installed in the LHC IP4, next to BSRT.}
     \label{fig:installation}
 \end{figure}
+\vspace{-5mm}
 
 \subsection{Installation in the LHC}
 
-The new installation, when \textit{in retracted position} is  highlighted by a~violet frame in Fig.~\ref{fig:installation}, 
+The new installation, shown \textit{in retracted position}, is  highlighted by a~violet frame in Fig.~\ref{fig:installation}, 
 %
 The operational AGM  (on the right) and  the longitudinal density monitor (LDM, on the left) are also partially visible in the same figure. 
 % Adjacent to its right is the operational AGM, while the longitudinal density monitor (LDM) occupies the left side.
@@ -289,41 +301,54 @@ The new AGM amplifier is mounted on the top of the optical front-end to ease the
 \begin{figure}[!htb]
     \begin{center}
         \scalebox{0.54}{\input{plots/ions.pgf}}
-        \caption{Comparison of the AGM measurements}
+        \caption{Example of a comparison between old and new  AGM measurements, binned in 100\,ns slots (\emph{output filter indices}).  The MCP-PMT gate is \emph{open} between index 17 and 47.}
         \label{fig:comparison_chart}
     \end{center}
 \end{figure}
 
 \vspace{-5mm}
-Initial measurements were conducted in November 2023 using the LHC ion beam.
+A first set of measurements with the new AGM system were taken during the 2023 Ion Run, 
+%Initial measurements were conducted in November 2023 using the LHC ion beam.
 %
-Figure~\ref{fig:comparison_chart} shows the very first measurements, compared to the operational AGM.
+and the comparison to the operational AGM is shown in Figure~\ref{fig:comparison_chart}.
+%shows the very first measurements, compared to the operational AGM.
 %
-Both measurements agree to 2\% within the operational area, but deviate starting at $47^{\text{th}}$ bin, resulting in maximum relative error of 4\%.
-Despite the MCP-PMT gate is closed at that point and no signal is present, the operational AGM signal gradually decays, and extends below zero.
+During the period in which the MCP-PMT gate is open (between index 17 and 47 in the plot) the agreement between old and new system is within $\pm 2\%$.  
+%Both measurements agree to 2\% within the operational area, but deviate starting at $47^{\text{th}}$ bin, resulting in maximum relative error of 4\%.
+When the MCP-PMT gate closes at index 47 the operational system exhibits a slow (several \SI{100}{ns} slots) decay to non-physical negative values. 
+%Despite the MCP-PMT gate is closed at that point and no signal is present, the operational AGM signal gradually decays, and extends below zero.
 %
 %Whoops, no signal shall be present - the MCP-PMT gates are closed.
 %This is surprising, as no signal shall be present - the MCP-PMT gates are closed. 
 %
-This effect is systematic, and is mostly caused by analog signal processing chain and non-ideal analogue integration.
+This effect was found to be  systematic, and traced back to  non-optimal analog signal processing and integration. 
+%chain and non-ideal analogue integration.
 %
-The new system effectively eliminates this.
+The new system eliminates this effect.
 
 
 \section{Summary}
-This paper describes upgrade of the operational AGM.
+
+The current LHC AGM system requires refurbishing to assure long-term maintainability of the DAQ. This paper outlines the new DAQ design, which is a fully digital solution incorporating digital integration. An initial prototype was installed to monitor the LHC on beam 1, working in tandem with the operational AGM.
+
+In 2023, a series of measurements with ions demonstrated exceptional performance, even with significantly less intercepted light, and showed strong alignment with the legacy system.
+
+The unit is now gathering data with protons, which will facilitate further analysis regarding its accuracy, reliability, and stability. Once the system is fully validated, both LHC AGMs will transition to the new version.
+
+
+%This paper describes upgrade of the operational AGM.
 %
-The operational system has to be replaced in the near future by a new AGM to assure long-term maintainability.
+%The operational system has to be replaced in the near future by a new AGM to assure long-term maintainability.
 %
-A fully digital solution was developed.
+%A fully digital solution was developed.
 %
-To assess its performance, it was installed in the LHC, on beam 1, in parallel with the operational AGM.
+%To assess its performance, it was installed in the LHC, on beam 1, in parallel with the operational AGM.
 %
-Very first measurements from November 2023 show exceptionally good performance even using considerably lower amount of intercepted light.
+%Very first measurements from November 2023 show exceptionally good performance even using considerably lower amount of intercepted light.
 %
-The upgraded AGM is now collecting data from the LHC 2024 proton run.
+%The upgraded AGM is now collecting data from the LHC 2024 proton run.
 %
-Further analysis in terms of accuracy, reliability, and stability has to be conducted, with the ultimate goal of replacing both operational AGMs by their new versions.
+%Further analysis in terms of accuracy, reliability, and stability has to be conducted, with the ultimate goal of replacing both operational AGMs by their new versions.
 
 \input{bibliography}
 
